@@ -1,0 +1,2770 @@
+<!doctype html>
+<html lang="es" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="assets/guerrero.png?v=20261017">
+<link rel="apple-touch-icon" href="assets/guerrero.png?v=20261017">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src 'self' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>wowinX · Mapa de oferta y procesos</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: var(
+    --background,
+    var(--color-background-primary, light-dark(rgb(255 255 255), rgb(24 24 24)))
+  ) !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --color-background-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --card: color-mix(in oklab, var(--foreground) 5%, var(--background));
+  --card-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --popover: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255), rgb(45 45 45))
+  );
+  --popover-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --primary: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --primary-foreground: var(
+    --color-text-inverse,
+    light-dark(rgb(255 255 255), rgb(13 13 13))
+  );
+  --secondary: var(
+    --color-background-secondary,
+    light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%))
+  );
+  --secondary-foreground: var(
+    --color-text-primary,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: var(
+    --color-text-secondary,
+    light-dark(rgb(26 28 31 / 49.4%), rgb(255 255 255 / 49.8%))
+  );
+  --accent: var(
+    --color-background-info,
+    light-dark(rgb(229 242 255), rgb(13 39 63))
+  );
+  --accent-foreground: var(
+    --color-text-info,
+    light-dark(rgb(51 156 255), rgb(131 195 255))
+  );
+  --destructive: var(
+    --color-text-warning,
+    light-dark(rgb(226 85 7), rgb(255 133 73))
+  );
+  --border: var(
+    --color-border-secondary,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+  --input: var(
+    --color-border-primary,
+    light-dark(
+      rgb(26 28 31 / 11.8%),
+      color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+    )
+  );
+  --ring: var(
+    --color-ring-primary,
+    light-dark(rgb(51 156 255), rgb(131 195 255 / 76%))
+  );
+  --font-size-base: var(--font-text-md-size, 16px);
+  --blue: light-dark(rgb(51 156 255), rgb(51 156 255));
+  --orange: light-dark(rgb(226 85 7), rgb(251 106 34));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+  --red: light-dark(rgb(224 46 42), rgb(255 103 100));
+  --purple: light-dark(rgb(146 79 247), rgb(173 123 249));
+  --yellow: light-dark(rgb(255 195 0), rgb(255 210 64));
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
+  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
+  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
+  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
+  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans:
+    -apple-system-body, ui-sans-serif, -apple-system, system-ui, "Segoe UI",
+    Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --icon-size: 16px;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --corner-shape: round;
+  --radius: var(--border-radius-lg, 8px);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  /* Preserve MCP aliases for older inline renderers without creating :root cycles. */
+  --color-background-primary: var(
+    --background,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --color-text-primary: var(
+    --foreground,
+    light-dark(rgb(26 28 31), rgb(255 255 255))
+  );
+  --color-border-secondary: var(
+    --border,
+    light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%))
+  );
+
+  margin: 0;
+  padding: var(--visualize-paint-gutter, 0px);
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans) !important;
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--font-size-base);
+  line-height: calc(var(--font-size-base) * 1.625);
+  font-weight: var(--font-weight-normal);
+}
+
+:root:not([data-app-block-surface], [data-visualize-standalone]) > body {
+  padding: 12px;
+}
+
+.cursor-interaction {
+  cursor: var(--cursor-interaction, pointer);
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+  text-underline-offset: 2px;
+  font-weight: inherit;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+.table {
+  font-family: var(--font-sans);
+}
+
+h1 {
+  font-size: calc(var(--font-size-base) * 1.5);
+  line-height: 1.3333333333;
+}
+
+h2 {
+  font-size: calc(var(--font-size-base) * 1.25);
+  line-height: 1.4;
+}
+h3 {
+  font-size: calc(var(--font-size-base) * 1.125);
+  line-height: 1.5555555556;
+}
+h4 {
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+}
+h5,
+h6 {
+  font-size: var(--font-size-base);
+  line-height: calc(var(--font-size-base) * 1.625);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+th {
+  font-weight: 600;
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  corner-shape: var(--corner-shape);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+pre,
+pre code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: calc(var(--font-size-base) * 0.875);
+  line-height: calc(var(--font-size-base) * 1.625);
+  font-family: var(--font-sans);
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 5%, transparent);
+}
+.table :is(th, td):not(:last-child) {
+  padding-inline-end: calc(var(--font-size-base) * 1.5);
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead :is(th, td) {
+  border-bottom-color: var(--border-strong, var(--input));
+  padding-block: calc(var(--font-size-base) / 2);
+  line-height: var(--font-size-base);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+.table tbody :is(th, td) {
+  padding-block: calc(var(--font-size-base) * 0.625);
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 8px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  corner-shape: var(--corner-shape);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+.widget {
+  min-width: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-lg);
+  corner-shape: var(--corner-shape);
+  box-shadow: 0 0 0 0.5px var(--border-strong, var(--border));
+  color: var(--foreground);
+  background: var(--background);
+}
+
+#widget > :not(.card, .widget, .progress) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  border: 1px solid var(--border);
+  corner-shape: var(--corner-shape);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--font-sans);
+  padding: 5px 12px;
+  border-color: color-mix(
+    in oklab,
+    light-dark(var(--primary-foreground), var(--foreground)) 5%,
+    transparent
+  );
+  border-radius: var(--radius-2xl);
+  color: light-dark(var(--primary-foreground), var(--foreground));
+  background: light-dark(var(--foreground), var(--popover));
+  box-shadow: 0 8px 18px rgb(15 23 42 / 20%);
+  letter-spacing: -0.15px;
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* The shared runtime owns data-tooltip; suppress AppBlock's pseudo-tooltip. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+hr {
+  width: 100%;
+  height: 1px;
+  margin-block: 6px;
+  border: 0;
+  background: var(--border);
+}
+
+.nav {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+}
+
+.progress {
+  display: flex;
+  height: 8px;
+  margin-block: calc((var(--line-height-normal, 1.5em) - 8px) / 2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+}
+
+.progress-bar:only-child {
+  border-radius: var(--radius-full);
+}
+
+.progress-bar {
+  height: 100%;
+  flex-shrink: 0;
+  border: 0;
+  background: var(--viz-series-1);
+}
+
+.viz-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  color: color-mix(in srgb, var(--foreground) 40%, var(--muted-foreground));
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  font-family: var(--font-sans);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 1;
+}
+
+small,
+.text-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.nav-link,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+/* Match inline alignment without overriding a containing flex or grid layout. */
+.btn,
+.nav-link,
+.form-control,
+.form-select,
+.form-range,
+.form-check {
+  vertical-align: middle;
+}
+
+.btn,
+.nav-link {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  corner-shape: var(--corner-shape);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: inherit;
+  font-family: var(--font-sans);
+  height: fit-content;
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  padding-inline: var(--control-spacing, 12px);
+  border-color: transparent;
+  border-radius: var(--radius-full);
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+}
+
+.btn {
+  border-color: var(--border);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: var(--cursor-interaction, pointer);
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.nav-link:not(:disabled):not([aria-disabled="true"]):hover {
+  background: color-mix(in srgb, var(--foreground) 10%, transparent);
+}
+
+.btn-primary {
+  border-color: var(--border);
+  color: var(--primary-foreground);
+  background: var(--foreground);
+  background-clip: border-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: border-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--muted-foreground);
+  background: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.nav-pills .nav-link {
+  min-width: 0;
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.nav-justified .nav-link {
+  flex: 1 1 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.nav-pills .nav-link.active {
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Shared preview chrome; product styles stay inside each variant. */
+.viz-dotted-background {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--foreground) 14%, transparent) 0.8px,
+    transparent 0.8px
+  );
+  background-position: center;
+  background-size: 16px 16px;
+}
+
+.viz-carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viz-carousel:has(> .viz-carousel-controls) {
+  min-height: calc(60px + var(--viz-carousel-picker-height, 0px));
+  padding-bottom: 60px;
+}
+
+.viz-carousel > [data-variant][hidden] {
+  display: none !important;
+}
+
+.viz-carousel > [data-variant] {
+  isolation: isolate;
+}
+
+.viz-carousel-controls {
+  --viz-carousel-hover: light-dark(
+    color-mix(in srgb, var(--foreground) 5.4%, transparent),
+    color-mix(in srgb, var(--foreground) 7.8%, transparent)
+  );
+  position: absolute;
+  z-index: 2;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  width: max-content;
+  /* Leave room for the host's design-controls launcher at the trailing edge. */
+  max-width: calc(100% - 96px);
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  /* Match the settings dropdown chrome independently of the content font size. */
+  font-size: 13px;
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+  transform: translateX(-50%);
+  user-select: none;
+}
+
+/* Keep authored mockup button styles out of the shared carousel chrome. */
+.viz-carousel-controls button,
+.viz-carousel-picker > summary {
+  display: flex !important;
+  height: auto !important;
+  min-height: 30px;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px;
+  padding: 0 6px !important;
+  -webkit-app-region: no-drag;
+  border: 0 !important;
+  border-radius: 14px !important;
+  color: inherit !important;
+  background: transparent !important;
+  font: inherit !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.viz-carousel-controls > button,
+.viz-carousel-picker > summary {
+  position: relative;
+  isolation: isolate;
+}
+
+.viz-carousel-controls > button {
+  --icon-size: 16px;
+  width: 30px !important;
+  padding: 0 !important;
+}
+
+.viz-carousel-picker > summary {
+  padding-inline: 12px !important;
+}
+
+.viz-carousel-controls .viz-carousel-caret {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  margin: 0;
+  color: inherit;
+  transform: rotate(180deg);
+}
+
+.viz-carousel-controls > button > svg,
+.viz-carousel-controls .viz-carousel-caret,
+.viz-carousel-count {
+  opacity: 0.5;
+}
+
+.viz-carousel-controls > button::before,
+.viz-carousel-picker > summary::before {
+  position: absolute;
+  z-index: -1;
+  inset: 3px;
+  border-radius: 12px;
+  content: "";
+  pointer-events: none;
+}
+
+.viz-carousel-controls > button:hover::before,
+.viz-carousel-picker > summary:hover::before {
+  background: var(--viz-carousel-hover);
+}
+
+.viz-carousel-controls > button,
+.viz-carousel-controls [data-lucide],
+.viz-carousel-controls .lucide {
+  flex-shrink: 0;
+}
+
+.viz-carousel-picker {
+  min-width: 0;
+}
+
+.viz-carousel-picker > summary {
+  min-width: 0;
+  list-style: none;
+}
+
+.viz-carousel-picker > summary::-webkit-details-marker {
+  display: none;
+}
+
+.viz-carousel-count {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.viz-carousel-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.viz-carousel-options {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 4px);
+  left: 0;
+  display: flex;
+  max-height: 240px;
+  flex-direction: column;
+  gap: 2px;
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--background);
+  box-shadow: 0 4px 12px light-dark(rgb(0 0 0 / 6%), rgb(0 0 0 / 25%));
+}
+
+.viz-carousel-options > button {
+  border-radius: max(0px, calc(var(--radius-lg) - 5px)) !important;
+  width: 100% !important;
+  min-height: 28px;
+  justify-content: flex-start !important;
+  padding: 4px 8px !important;
+  font-size: var(--font-size-small) !important;
+  text-align: start;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.viz-carousel-options > [aria-current="true"],
+.viz-carousel-options > button:hover {
+  background: var(--viz-carousel-hover) !important;
+}
+
+.btn:disabled,
+.nav-link:disabled,
+.nav-link[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  padding-inline: calc(4px + var(--control-spacing, 12px) / 2);
+  border-color: var(--input);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--popover) 96%, transparent);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.4285714286;
+}
+.form-control:is(
+  [type="file"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="week"],
+  [type="color"]
+) {
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  line-height: 18px;
+}
+.form-control:is(
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="week"]
+) {
+  padding-inline: var(--control-spacing, 12px);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+  padding: 0;
+}
+
+.form-control[type="file"]::file-selector-button {
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+  min-height: calc(10px + 2 * var(--control-spacing, 12px));
+  padding-inline: var(--control-spacing, 12px);
+  margin-inline-end: var(--control-spacing, 12px);
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+  corner-shape: var(--corner-shape);
+}
+
+textarea.form-control {
+  height: auto;
+  resize: vertical;
+  min-height: 96px;
+  padding: 8px 10px;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: none;
+}
+.form-control:disabled {
+  color: var(--muted-foreground);
+  background: color-mix(in srgb, var(--foreground) 5%, transparent);
+  opacity: 1;
+}
+.form-control[aria-invalid="true"] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--red) 20%, transparent);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: fit-content;
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  margin: 0;
+  /* The secondary icon role is 14px at compact density and 16px at web density. */
+  --icon-size: calc(10px + var(--control-spacing, 12px) / 2);
+  /* Settings dropdowns retain a 12px inset and a 4px text-to-chevron gap. */
+  padding: 0 calc(16px + var(--icon-size)) 0 12px;
+  outline: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  corner-shape: var(--corner-shape);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent calc(50% - 0.6px),
+      var(--muted-foreground) calc(50% - 0.6px) calc(50% + 0.6px),
+      transparent calc(50% + 0.6px)
+    ),
+    linear-gradient(
+      135deg,
+      transparent calc(50% - 0.6px),
+      var(--muted-foreground) calc(50% - 0.6px) calc(50% + 0.6px),
+      transparent calc(50% + 0.6px)
+    );
+  background-position:
+    calc(100% - 12px - var(--icon-size) / 2) 50%,
+    calc(100% - 12px - var(--icon-size) * 0.18) 50%;
+  background-repeat: no-repeat;
+  background-size: calc(var(--icon-size) * 0.32) calc(var(--icon-size) * 0.32);
+  cursor: var(--cursor-interaction, default);
+  font-size: calc(var(--font-size-base) * 14 / 16);
+  font-size: round(nearest, calc(var(--font-size-base) * 14 / 16), 1px);
+  font-weight: var(--font-weight-normal);
+  line-height: 18px;
+}
+
+.form-select option {
+  color: var(--popover-foreground);
+  background-color: var(--popover);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: light-dark(
+    color-mix(in srgb, var(--foreground) 5.5%, transparent),
+    color-mix(in srgb, var(--foreground) 8%, transparent)
+  );
+}
+
+.form-select:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+.form-select:disabled {
+  opacity: 0.4;
+}
+
+.form-check {
+  display: flex;
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  corner-shape: round;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  width: calc(10px + var(--control-spacing, 12px) / 2);
+  height: calc(10px + var(--control-spacing, 12px) / 2);
+  border-color: var(--border-strong, var(--input));
+  border-radius: calc(var(--radius-sm) / 2);
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:is(:checked, :indeterminate) {
+  border-color: var(--border-strong, var(--input));
+  background-color: color-mix(in srgb, var(--popover) 96%, transparent);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+  background-color: var(--foreground);
+}
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:indeterminate::before {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 65%;
+  height: 6.65%;
+  margin: auto;
+  border-radius: var(--radius-full);
+  background: var(--foreground);
+  mask: none;
+  content: "";
+}
+
+.form-check-input[type="radio"] {
+  border-radius: var(--radius-full);
+  width: 16px;
+  height: 16px;
+  border: 0;
+  box-shadow: inset 0 0 0 1px var(--input);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 0;
+  background: radial-gradient(
+    circle,
+    var(--primary-foreground) 0 3px,
+    var(--foreground) 3px
+  );
+  box-shadow: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:focus-visible {
+  border-color: var(--ring);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+.form-check:not(.form-switch) .form-check-input[type="radio"]:disabled,
+.form-check:not(.form-switch)
+  .form-check-input[type="radio"]:disabled
+  + .form-check-label {
+  opacity: 0.5;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+  border-color: #fff;
+  background: #fff;
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--blue);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+  outline: none;
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  accent-color: var(--primary);
+  height: calc(12px + 2 * var(--control-spacing, 12px));
+  min-height: calc(12px + 2 * var(--control-spacing, 12px));
+  outline: none;
+  border-radius: var(--radius-full);
+  color: var(--foreground);
+  background: transparent;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  background: var(--form-range-track, var(--border));
+  height: 2px;
+  border-radius: var(--radius-full);
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  margin-top: -9px;
+  border-color: transparent;
+  background: currentColor;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Outline the native track and thumb, preserving the larger input hit area. */
+.form-range:focus-visible::-webkit-slider-runnable-track {
+  outline: 2px auto Highlight;
+  outline-color: -webkit-focus-ring-color;
+}
+
+.form-range::-moz-range-track {
+  background: var(--form-range-track, var(--border));
+  height: 2px;
+  border-radius: var(--radius-full);
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  border-color: transparent;
+  background: currentColor;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+
+.form-range:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+  [aria-pressed="true"],
+  [aria-selected="true"],
+  .is-selected
+) {
+  border-color: transparent;
+  color: var(--primary-foreground);
+  background: var(--blue);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible,
+.nav-link:focus-visible {
+  outline-offset: 2px;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.viz-carousel-controls :is(button, summary):focus-visible {
+  outline: 2px solid var(--ring) !important;
+  outline-offset: 2px !important;
+}
+
+/* Web recipes are the default, including on renderers without inline style queries. */
+@supports (border-radius: if(style(--corner-shape: round): 1px; else: 2px)) {
+  /* Match the host's proportional text-sm scale at every text preference. */
+  .tooltip,
+  .viz-badge,
+  .btn,
+  .nav-link,
+  .form-control,
+  .form-select {
+    font-size: if(
+      style(--corner-shape: round): round(
+          nearest,
+          calc(var(--font-size-base) * 14 / 16),
+          1px
+        );
+        else: round(nearest, calc(var(--font-size-base) * 13 / 14), 1px)
+    );
+  }
+
+  .btn,
+  .nav-link,
+  .form-select {
+    border-radius: if(
+      style(--corner-shape: round): var(--radius-full); else: var(--radius-lg)
+    );
+  }
+
+  .form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+    border-radius: if(
+      style(--corner-shape: round): calc(var(--radius-sm) / 2);
+        else: calc(var(--radius-lg) * 0.4)
+    );
+  }
+
+  .tooltip {
+    font-weight: if(
+      style(--corner-shape: round): 600; else: var(--font-weight-normal)
+    );
+  }
+}
+
+@media (pointer: coarse) {
+  .viz-carousel:has(> .viz-carousel-controls) {
+    min-height: calc(76px + var(--viz-carousel-picker-height, 0px));
+    padding-bottom: 76px;
+  }
+
+  .btn,
+  .nav-link,
+  .viz-carousel-controls button,
+  .viz-carousel-picker > summary,
+  .form-control,
+  .form-select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Keep small-screen WebKit from zooming when a text field receives focus. */
+  .form-control,
+  .form-select {
+    font-size: max(16px, calc(var(--font-size-base) * 14 / 16));
+    font-size: max(
+      16px,
+      round(nearest, calc(var(--font-size-base) * 14 / 16), 1px)
+    );
+  }
+  .form-control:is(
+    [type="file"],
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="week"],
+    [type="time"],
+    [type="color"]
+  ) {
+    height: 44px;
+    min-height: 44px;
+    font-size: max(16px, calc(var(--font-size-base) * 14 / 16));
+    font-size: max(
+      16px,
+      round(nearest, calc(var(--font-size-base) * 14 / 16), 1px)
+    );
+  }
+
+  .form-control[type="file"]::file-selector-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .form-control-color[type="color"] {
+    width: 44px;
+    height: 44px;
+  }
+
+  .form-control:is(
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"]
+  ) {
+    min-width: 0;
+    max-width: 100%;
+    padding-block: 8px;
+  }
+
+  .form-check {
+    min-height: 44px;
+    padding-inline: 15px;
+  }
+
+  .form-check-input {
+    position: relative;
+  }
+
+  .form-check-input::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+
+  .form-check-label {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .form-range {
+    height: 44px;
+    touch-action: pan-y;
+  }
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+/* Model-authored chart rules can otherwise stretch icons after these styles load. */
+svg.lucide {
+  display: block;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  flex: none;
+  margin: 0 !important;
+  stroke-width: 1.6;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+
+html>body{padding:0}</style>
+<style>
+:root{color-scheme:light;--background:#f8f7fb;--foreground:#24202e;--primary:#503189;--primary-foreground:#fff;--border:#ded8e9;--muted:#eeeaf4;--muted-foreground:#696172;--viz-series-1:#7350b3;--viz-series-2:#3d8c8a;--viz-series-3:#bd8050;--viz-series-4:#5483b4}
+html{scroll-behavior:smooth}body{max-width:1200px;margin:auto;padding:20px 26px 44px;font-family:Arial,sans-serif}button{font-family:inherit}#wx-presentation .map-origin{padding-top:24px}#wx-presentation .current{margin-bottom:12px}#wx-presentation .origin{padding:10px 0}.site-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 0 14px;border-bottom:1px solid var(--border)}.site-tools small{color:var(--muted-foreground)}.site-tools button{border:1px solid var(--border);background:transparent;color:var(--foreground);border-radius:8px;padding:8px 12px;cursor:pointer}@media(max-width:600px){body{padding:12px}}@media print{.site-tools{display:none}body{max-width:none;padding:0}.view[hidden]{display:none!important}button{border:none!important}.stop{break-inside:avoid}}
+</style><style id="warrior-theme">:root {
+  color-scheme: dark;
+  --background: #050a18;
+  --foreground: #edf5ff;
+  --primary: #b8f9fa;
+  --primary-foreground: #071625;
+  --secondary: #15223b;
+  --secondary-foreground: #edf5ff;
+  --muted: #101e35;
+  --muted-foreground: #bbcade;
+  --border: #719bba55;
+  --card: #0b1629;
+  --card-foreground: #edf5ff;
+  --accent: #20334f;
+  --accent-foreground: #c2faff;
+  --viz-series-1: #afaaff;
+  --viz-series-2: #83f3df;
+  --viz-series-3: #82d8ff;
+  --viz-series-4: #c5b1e1;
+}
+* { box-sizing: border-box; }
+html { background: #050a18; scroll-padding-top: 88px; }
+body { max-width: none; padding: 0; margin: 0; background: #050a18; color: #edf5ff; font-family: Arial, Helvetica, sans-serif; }
+.warrior-nav { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: 25px; flex-wrap: wrap; padding: 18px 4%; background: #071021f5; border-bottom: 1px solid #719bba55; backdrop-filter: blur(14px); }
+.warrior-brand { font-weight: 900; font-size: 28px; letter-spacing: -2px; margin-right: auto; color: #edf5ff; text-decoration: none; }
+.warrior-brand b { color: #afaaff; }
+.warrior-nav button { border: 0; background: none; color: #c8d8eb; font: 700 11px Arial, sans-serif; letter-spacing: 1.4px; padding: 8px 0; cursor: pointer; }
+.warrior-nav button:hover { color: #89efff; }
+.warrior-nav button:focus-visible { outline: 2px solid #a5f7ff; outline-offset: 5px; }
+#wx-presentation { max-width: 1280px; margin: 0 auto; padding: 0 5% 35px; }
+#wx-presentation .map-origin { text-align: left; padding: 62px 0 36px; background: radial-gradient(ellipse at top right,#44486c44,transparent 67%); }
+.warrior-eyebrow { color: #9aefff; font-size: 11px; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px; }
+#wx-presentation .map-origin h1 { font-size: clamp(34px,5.4vw,66px); font-weight: 900; letter-spacing: -2px; line-height: 1.04; margin: 0 0 20px; text-transform: uppercase; }
+#wx-presentation .map-origin h1 span { color: #a8bbeb; }
+#wx-presentation .map-origin p { color: #bbcade; font-size: 15px; line-height: 1.7; margin: 0; max-width: 680px; }
+#wx-presentation .trunk { background: #829ac066; height: 28px; }
+#wx-presentation .main-fork { gap: 34px; padding-top: 26px; border-top-color: #829ac066; }
+#wx-presentation .arm:before { top: -26px; height: 26px; background: #829ac066; }
+#wx-presentation .arm { padding-bottom: 16px; }
+#wx-presentation .arm > .btn { display: block; width: 100%; text-align: left; background: linear-gradient(135deg,#182543,#0c172c); border: 1px solid #899cd55e; color: #edf5ff; border-radius: 5px; padding: 25px 24px; font-size: 23px; font-weight: 700; letter-spacing: -.5px; }
+#wx-presentation .arm > .btn[aria-pressed=true] { background: linear-gradient(135deg,#263659,#13233e); border-color: #a5f7ff; color: #c2faff; box-shadow: 0 0 24px #8bcfff10; }
+#wx-presentation .arm > .btn:hover { border-color: #a5f7ff; }
+#wx-presentation .arm p { text-align: left; padding-left: 3px; color: #bbcade; margin-top: 12px; }
+#wx-presentation .current { color: #9aefff; letter-spacing: .5px; border-top-color: #798ecd35; padding-top: 20px; margin-top: 12px; }
+#wx-map .origin,#wx-paths .origin { text-align: left; padding: 22px 0; }
+#wx-map .origin h2,#wx-paths .origin h2 { color: #edf5ff; font-size: 28px; letter-spacing: -1px; font-weight: 700; }
+#wx-map .origin span,#wx-paths .origin span { color: #bbcade; }
+#wx-presentation .btn { border-radius: 5px; }
+#wx-map .branches .btn { background: #101e35; border-color: #829ac066; color: #edf5ff; }
+#wx-map .branches .btn[aria-pressed=true],#wx-paths .fork .btn[aria-pressed=true] { background: #b8f9fa; color: #071625; border-color: #b8f9fa; }
+#wx-map .leaf { padding-top: 5px; padding-bottom: 20px; border-left-color: #899cd53d; }
+#wx-map .leaf p { color: #bbcade; line-height: 1.65; }
+#wx-map summary { color: #b9caff; font-size: 18px; }
+#wx-paths .fork { justify-content: flex-start; gap: 10px; padding: 18px 0 22px; }
+#wx-paths .fork .btn { background: #101e35; color: #edf5ff; border-color: #829ac066; }
+#wx-paths .road { margin-top: 30px; border-left-color: #8fa8cd55; }
+#wx-paths .stop { padding-top: 2px; padding-bottom: 36px; }
+#wx-paths .stop h3 { font-size: 24px; font-weight: 700; letter-spacing: -.6px; color: #edf5ff; }
+#wx-paths .stop > p { color: #83f3df; line-height: 1.65; margin: 9px 0; }
+#wx-paths .marker { background: #182b47; color: #b9caff; border: 1px solid #899cd55e; }
+#wx-paths .stop:first-child .marker { background: #b8f9fa; color: #071625; }
+#wx-paths .doclist { gap: 10px 26px; padding-top: 18px; }
+#wx-paths .doc { border-left-color: #899cd53d; padding-bottom: 12px; }
+#wx-paths .doc .btn-ghost { color: #d6e8fa; text-align: left; }
+#wx-paths .doc .btn-ghost:hover { color: #affaff; background: #71a9e61a; }
+#wx-paths .docdetail { color: #bbcade; line-height: 1.65; }
+#wx-presentation .legend { color: #bbcade; margin-top: 30px; border-top-color: #98bce044; }
+@media(max-width:650px) {
+ .warrior-nav { gap: 16px; padding: 12px 5%; }
+ .warrior-brand { font-size: 24px; }
+ .warrior-nav button { font-size: 10px; }
+ #wx-presentation { padding: 0 6% 25px; }
+ #wx-presentation .map-origin { padding: 35px 0 24px; }
+ #wx-presentation .map-origin h1 { letter-spacing: -1px; }
+ #wx-presentation .main-fork { gap: 15px; }
+ #wx-presentation .arm > .btn { padding: 18px 14px; font-size: 18px; }
+ #wx-paths .stop h3 { font-size: 21px; }
+}
+@media print {
+ .warrior-nav { display:none; }
+ :root { color-scheme: light; --foreground:#111; --background:#fff; --muted-foreground:#444; }
+ body { background:#fff; color:#111; }
+ #wx-presentation .map-origin h1,#wx-paths .stop h3 { color:#111; }
+ #wx-presentation .map-origin { padding-top:10px; }
+}
+</style><style id="light-theme">:root{color-scheme:light;--background:#fff;--foreground:#202a3d;--primary:#5754a8;--primary-foreground:#fff;--secondary:#f1f0f8;--secondary-foreground:#26253e;--muted:#f0f2f8;--muted-foreground:#606c80;--border:#d8deeb;--card:#fff;--card-foreground:#202a3d;--accent:#edf4fa;--accent-foreground:#343570;--viz-series-1:#6962b4;--viz-series-2:#238b8a;--viz-series-3:#3476a4;--viz-series-4:#9b5d9f}
+html,body{background:#fff;color:#202a3d}
+.warrior-nav{background:#ffffffed;border-bottom:1px solid #dde2ed;backdrop-filter:blur(14px)}
+.warrior-nav .guide-label{font-size:12px;letter-spacing:2px;font-weight:700;color:#62618c;margin-right:auto}
+.warrior-nav button{color:#4c5870}.warrior-nav button:hover{color:#5754a8}
+#wx-presentation .map-origin{display:grid;grid-template-columns:1fr 1.05fr;gap:30px;align-items:center;position:relative;background:none;padding:40px 0 30px;overflow:hidden}
+.hero-copy{position:relative;z-index:1;min-width:0}.warrior-eyebrow{color:#5d6096;letter-spacing:2px}
+#wx-presentation .map-origin h1{color:#202a3d;font-size:clamp(32px,4.2vw,56px);letter-spacing:-1.7px}
+#wx-presentation .map-origin h1 span{color:#6b64ab}
+#wx-presentation .map-origin p{color:#606c80;font-size:15px}
+.warrior-illustration{height:330px;position:relative;overflow:hidden;border-radius:6px;background:#eef0f9}
+.warrior-illustration img{position:absolute;width:185%;max-width:none;height:auto;left:-46%;top:-116px}
+.warrior-illustration:after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 28px #ffffff1a;pointer-events:none}
+#wx-presentation .trunk,#wx-presentation .arm:before{background:#c8cee0}
+#wx-presentation .main-fork{border-top-color:#c8cee0}
+#wx-presentation .arm > .btn{background:linear-gradient(135deg,#f4f2fa,#fafbfe);border-color:#d4d5e7;color:#292b4d;box-shadow:none}
+#wx-presentation .arm > .btn:hover{border-color:#8f8abc}
+#wx-presentation .arm > .btn[aria-pressed=true]{background:#eeecf8;color:#46427b;border-color:#938ac4;box-shadow:none}
+#wx-presentation .arm p{color:#657086}
+#wx-presentation .current{color:#5d6096;border-top-color:#e1e4ed}
+#wx-map .origin h2,#wx-paths .origin h2{color:#202a3d}
+#wx-map .origin span,#wx-paths .origin span{color:#606c80}
+#wx-map .branches .btn,#wx-paths .fork .btn{background:#f5f6fb;border-color:#d8deeb;color:#35415b}
+#wx-map .branches .btn[aria-pressed=true],#wx-paths .fork .btn[aria-pressed=true]{background:#5754a8;color:#fff;border-color:#5754a8}
+#wx-map .leaf{border-left-color:#d8deeb}#wx-map .leaf p{color:#606c80}#wx-map summary{color:#555184}
+#wx-paths .road{border-left-color:#d0d6e5}
+#wx-paths .stop h3{color:#263149}
+#wx-paths .stop > p{color:#26736e}
+#wx-paths .marker{background:#eff0f8;color:#575184;border-color:#d5d6e7}
+#wx-paths .stop:first-child .marker{background:#5754a8;color:#fff}
+#wx-paths .doc{border-left-color:#d8deeb}
+#wx-paths .doc .btn-ghost{color:#3d4862}
+#wx-paths .doc .btn-ghost:hover{color:#4f4993;background:#f0eef9}
+#wx-paths .docdetail{color:#606c80}
+#wx-presentation .legend{color:#606c80;border-top-color:#d8deeb}
+@media(max-width:700px){#wx-presentation .map-origin{grid-template-columns:1fr;gap:20px;padding-top:30px}.warrior-illustration{height:250px}.warrior-illustration img{width:150%;left:-25%;top:-110px}.warrior-eyebrow{font-size:10px}.warrior-nav .guide-label{font-size:10px;letter-spacing:1px}}
+@media print{.warrior-illustration{display:none}#wx-presentation .map-origin{display:block}}
+</style><style>.warrior-illustration{height:auto;aspect-ratio:952/620}.warrior-illustration img{position:static;width:100%;max-width:100%;height:auto;display:block}.crm-action-link{display:inline-block;margin:6px 0;color:#514b97;text-decoration:underline;text-underline-offset:3px;font-weight:700}</style></head>
+<body><nav class="warrior-nav" aria-label="Navegación principal"><span class="guide-label">GUÍA COMERCIAL · WOWINX</span><button type="button" data-nav="catalog">QUÉ VENDEMOS</button><button type="button" data-nav="paths">EL CAMINO</button><button type="button" data-nav="docs">DOCUMENTACIÓN</button><button type="button" id="presentation-fullscreen">PANTALLA COMPLETA</button></nav>
+<script type="application/json" id="codex-visualization-widget-state">__CODEX_VISUALIZATION_WIDGET_STATE__</script>
+<script>(() => {
+  const root = document.documentElement;
+  const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
+  const apply = Reflect.apply;
+  const isArray = Array.isArray;
+  const hasOwn = Object.hasOwn;
+  const parentWindow = globalThis.parent;
+  const stringify = JSON.stringify;
+  const parse = JSON.parse;
+  const encode = TextEncoder.prototype.encode.bind(new TextEncoder());
+  const initialStateElement = document.getElementById(
+    "codex-visualization-widget-state",
+  );
+  const initialGlobals = parse(initialStateElement?.textContent ?? "{}");
+  initialStateElement?.remove();
+  /** @type {Record<string, unknown> | null} */
+  let state = initialGlobals.widgetState ?? null;
+  const statePersistence = initialGlobals.statePersistence ?? "none";
+  let nextStateRequestId = 0;
+  /** @type {Map<number, { resolve: () => void; reject: (error: Error) => void; timeout: ReturnType<typeof globalThis.setTimeout>; serializedState: string }>} */
+  const pendingStateWrites = new Map();
+  const persistenceError = () =>
+    Object.assign(
+      new Error("The host could not persist the widget state update"),
+      {
+        code: -32000,
+        data: { code: "widget_state_persistence_failed", retryable: false },
+      },
+    );
+  /**
+   * @param {object} prototype
+   * @param {string} property
+   */
+  const getPrototypeGetter = (prototype, property) => {
+    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
+    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
+    if (getter == null) {
+      throw new Error(`Missing ${property} getter`);
+    }
+    return getter;
+  };
+  const getMessageData = getPrototypeGetter(MessageEvent.prototype, "data");
+  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, "ports");
+  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, "source");
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const addHostMessageListener = MessagePort.prototype.addEventListener;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const postHostMessage = MessagePort.prototype.postMessage;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const startHostPort = MessagePort.prototype.start;
+  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
+  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
+  /** @type {MessagePort | null} */
+  let hostPort = null;
+  const postToHost = (type, payload) => {
+    if (hostPort != null) {
+      apply(postHostMessage, hostPort, [{ type, ...payload }]);
+    }
+  };
+  const openExternal = ({ href }) => {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost("open-external", { href });
+    }
+  };
+  const sendFollowUpMessage = ({ context, prompt, title }) => {
+    if (globalThis.navigator.userActivation?.isActive === true) {
+      postToHost("follow-up", { context, prompt, title });
+    }
+    return Promise.resolve();
+  };
+  /**
+   * @param {Record<string, unknown> | ((previous: Record<string, unknown> | null) => Record<string, unknown>)} next
+   * @returns {Promise<void>}
+   */
+  const setWidgetState = async (next) => {
+    const nextState = typeof next === "function" ? next(state) : next;
+    if (
+      nextState == null ||
+      typeof nextState !== "object" ||
+      isArray(nextState)
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const inputState = stringify(
+      nextState,
+      (_key, /** @type {unknown} */ value) => {
+        if (
+          typeof value === "undefined" ||
+          typeof value === "function" ||
+          typeof value === "symbol" ||
+          (typeof value === "number" && !Number.isFinite(value))
+        ) {
+          throw new TypeError("Widget state must be a JSON object");
+        }
+        return value;
+      },
+    );
+    const parsedState = parse(inputState);
+    if (
+      parsedState == null ||
+      typeof parsedState !== "object" ||
+      isArray(parsedState)
+    ) {
+      throw new TypeError("Widget state must be a JSON object");
+    }
+    const storedState = {
+      modelContent: null,
+      privateContent: null,
+      ...parsedState,
+    };
+    const serializedState = stringify(storedState);
+    if (encode(serializedState).length > 16 * 1024) {
+      throw new TypeError(
+        "Widget state must be a JSON object of at most 16 KiB",
+      );
+    }
+    if (
+      hasOwn(storedState, "imageIds") &&
+      (!isArray(storedState.imageIds) ||
+        storedState.imageIds.some(
+          (/** @type {unknown} */ id) => typeof id !== "string",
+        ))
+    ) {
+      throw new TypeError("Widget state imageIds must be an array of strings");
+    }
+    if (storedState.imageIds?.length > 0) {
+      throw Object.assign(
+        new TypeError("Visualization state does not support image attachments"),
+        { code: -32602, data: { code: "images_unsupported" } },
+      );
+    }
+    state = storedState;
+    globalThis.openai.widgetState = state;
+    globalThis.dispatchEvent(
+      new CustomEvent("openai:set_globals", {
+        detail: { globals: { widgetState: state } },
+      }),
+    );
+    if (statePersistence === "none") {
+      throw persistenceError();
+    }
+    const id = ++nextStateRequestId;
+    return new Promise((resolve, reject) => {
+      const timeout = globalThis.setTimeout(() => {
+        pendingStateWrites.delete(id);
+        reject(persistenceError());
+      }, 30_000);
+      pendingStateWrites.set(id, { resolve, reject, timeout, serializedState });
+      postToHost("widget-state-write", { id, state: serializedState });
+    });
+  };
+  const syncTheme = () => {
+    const theme = mediaQuery.matches ? "dark" : "light";
+    root.dataset.theme = theme;
+    globalThis.openai = {
+      ...globalThis.openai,
+      openExternal,
+      sendFollowUpMessage,
+      setWidgetState,
+      theme,
+      visualizationStyleVariables: {},
+      visualizationTheme: theme,
+      widgetState: state,
+      statePersistence,
+      stateModelContext: "none",
+    };
+    globalThis.dispatchEvent(
+      new CustomEvent("openai:set_globals", {
+        detail: { globals: globalThis.openai },
+      }),
+    );
+  };
+  const sendHeight = () => {
+    postToHost("height", {
+      height: Math.ceil(
+        Math.max(
+          document.body.scrollHeight,
+          document.body.getBoundingClientRect().height,
+        ),
+      ),
+    });
+  };
+
+  globalThis.addEventListener(
+    "message",
+    (event) => {
+      const data = apply(getMessageData, event, []);
+      const ports = apply(getMessagePorts, event, []);
+      const source = apply(getMessageSource, event, []);
+      if (
+        hostPort != null ||
+        source !== parentWindow ||
+        typeof data !== "object" ||
+        data?.type !== "codex-visualization-initialize" ||
+        !isArray(ports) ||
+        ports.length !== 1
+      ) {
+        return;
+      }
+      apply(stopMessagePropagation, event, []);
+      const nextHostPort = ports[0];
+      try {
+        apply(addHostMessageListener, nextHostPort, [
+          "message",
+          (event) => {
+            const data = apply(getMessageData, event, []);
+            if (typeof data === "object" && data?.type === "measure") {
+              sendHeight();
+            } else if (
+              typeof data === "object" &&
+              data?.type === "widget-state-result"
+            ) {
+              /** @type {unknown} */
+              const id = data.id;
+              if (typeof id !== "number") {
+                return;
+              }
+              const pending = pendingStateWrites.get(id);
+              if (pending != null) {
+                pendingStateWrites.delete(id);
+                globalThis.clearTimeout(pending.timeout);
+                if (data.ok === true) {
+                  pending.resolve();
+                } else {
+                  pending.reject(persistenceError());
+                }
+              }
+            }
+          },
+        ]);
+        apply(startHostPort, nextHostPort, []);
+      } catch {
+        return;
+      }
+      hostPort = nextHostPort;
+      for (const [id, { serializedState }] of pendingStateWrites) {
+        postToHost("widget-state-write", { id, state: serializedState });
+      }
+      sendHeight();
+    },
+    { capture: true },
+  );
+  document.currentScript?.remove();
+  mediaQuery.addEventListener("change", syncTheme);
+  globalThis.addEventListener("click", (event) => {
+    if (event.defaultPrevented) {
+      return;
+    }
+    let element = null;
+    if (event.target instanceof globalThis.Element) {
+      element = event.target;
+    } else if (event.target instanceof globalThis.Node) {
+      element = event.target.parentElement;
+    }
+    const link = element?.closest("a[href]");
+    const href = link?.getAttribute("href");
+    if (href == null) {
+      return;
+    }
+    if (href.startsWith("#")) {
+      let id;
+      try {
+        id = decodeURIComponent(href.slice(1));
+      } catch {
+        return;
+      }
+      const target = id.length === 0 ? root : document.getElementById(id);
+      if (
+        target == null ||
+        globalThis.navigator.userActivation?.isActive !== true
+      ) {
+        return;
+      }
+      event.preventDefault();
+      postToHost("scroll-to", {
+        top: target.getBoundingClientRect().top + globalThis.scrollY,
+      });
+      return;
+    }
+    event.preventDefault();
+    openExternal({ href });
+  });
+  new ResizeObserver(sendHeight).observe(document.body);
+  syncTheme();
+})();
+</script>
+<div id="wx-presentation">
+<style>
+#wx-presentation{color:var(--foreground)}#wx-presentation .map-origin{text-align:center;padding:22px 0 12px}#wx-presentation .map-origin h2{margin:0 0 6px}#wx-presentation .trunk{height:24px;width:1px;background:var(--border);margin:auto}#wx-presentation .main-fork{display:grid;grid-template-columns:1fr 1fr;gap:26px;border-top:1px solid var(--border);padding-top:20px}#wx-presentation .arm{text-align:center;min-width:0;position:relative}#wx-presentation .arm:before{content:'';position:absolute;top:-20px;left:50%;height:20px;width:1px;background:var(--border)}#wx-presentation .arm p{margin:8px 0}#wx-presentation .examples{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:20px 0}#wx-presentation .current{border-top:1px solid var(--border);padding:12px 0;margin-top:8px}#wx-presentation .muted{color:var(--muted-foreground)}#wx-presentation .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}#wx-presentation .view[hidden]{display:none}#wx-presentation .links-ready{color:var(--muted-foreground)}@media(max-width:450px){#wx-presentation .main-fork{gap:12px}}
+</style>
+<div class="map-origin"><div class="hero-copy"><div class="warrior-eyebrow">WOWINX · GUÍA DE RECURSOS COMERCIALES</div><h1 class="wowinx-brand-heading"><img class="wowinx-official-logo" src="assets/logo-wowinx.png" alt="wowinX" width="2048" height="448"></h1><p>Toda nuestra oferta y cada etapa del camino.<br>Productos, documentos y equipos conectados en un mismo lugar.</p></div><div class="warrior-illustration"><img src="assets/guerrero.png" alt="Guerrero, mochila y visor: todo lo que necesitas para salir a vender"></div></div>
+<div class="trunk"></div>
+<div class="main-fork">
+<div class="arm arm-catalog"><button type="button" class="btn entry-card" data-view="catalog" aria-pressed="false"><span class="entry-top"><span class="entry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg></span><span class="entry-arrow" aria-hidden="true">↗</span></span><span class="entry-kicker">Explora la oferta</span><span class="entry-title">Qué tenemos para vender</span><span class="entry-description">4 familias · Subfamilias · Productos</span></button></div>
+<div class="arm arm-paths"><button type="button" class="btn entry-card" data-view="paths" aria-pressed="false"><span class="entry-top"><span class="entry-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 7v8a4 4 0 0 0 4 4h8M7 5h8a4 4 0 0 1 4 4v4m-3-3 3 3 3-3"/></svg></span><span class="entry-arrow" aria-hidden="true">↗</span></span><span class="entry-kicker">Del primer contacto a la entrega</span><span class="entry-title">Modalidades de venta</span><span class="entry-description">Hitos · Documentos · Responsables</span></button></div>
+</div>
+
+<p style="text-align:center"><button type="button" class="btn" data-view="docs">Consultar documentación por producto</button></p>
+<div class="current text-small" aria-live="polite">Selecciona qué vendemos o el camino que necesitas consultar</div>
+<div class="view catalog-view" hidden>
+<div id="wx-map">
+<style>
+#wx-map{color:var(--foreground);font-family:inherit}#wx-map .origin{text-align:center;padding:18px 0}#wx-map .origin h2{margin:0}#wx-map .stem{height:24px;width:1px;background:var(--border);margin:auto}#wx-map .branches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;border-top:1px solid var(--border);padding-top:18px}#wx-map .family{min-width:0;text-align:center;position:relative}#wx-map .family:before{content:'';position:absolute;top:-18px;height:18px;width:1px;background:var(--border);left:50%}#wx-map .tree{padding:20px 0 4px}#wx-map details{margin:0 0 14px 12px;border-left:1px solid var(--border);padding-left:18px}#wx-map summary{padding:9px 0;font-weight:500}#wx-map .products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 22px;padding:10px 0}#wx-map .leaf{min-width:0;position:relative;padding:3px 0 10px 14px;border-left:1px solid var(--border)}#wx-map .leaf:before{content:'';position:absolute;top:21px;left:0;width:12px;height:1px;background:var(--border)}#wx-map .leaf p{margin:6px 0}#wx-map .modes{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}#wx-map .detail{margin-top:16px;padding-top:12px;border-top:1px solid var(--border)}#wx-map .detail h3{margin:4px 0 8px}#wx-map .familymark{height:5px;margin:8px auto;width:44px;background:var(--familycolor)}#wx-map .selected-path{margin:12px 0 0}#wx-map .pending{color:var(--muted-foreground)}@media(max-width:540px){#wx-map .branches{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:20px}#wx-map .products{grid-template-columns:1fr}}
+</style>
+<div class="origin"><h2>Qué tenemos para vender</h2><span class="text-small">Qué tenemos para vender</span></div>
+<div class="stem"></div>
+<div class="branches" aria-label="Familias madre"></div>
+<p class="selected-path text-small" aria-live="polite"></p>
+<div class="tree"></div>
+<div class="detail" hidden aria-live="polite"></div>
+<script>
+(()=>{
+const root=document.getElementById('wx-map');
+const rows=[["WX-001","BeFootball","VSSoccer","VSS 1vs1 — manos","Enfrentamiento de fútbol VR entre dos jugadores, en la variante de manos.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-002","BeFootball","VSSoccer","VSS 1vs1 — pies","Enfrentamiento de fútbol VR entre dos jugadores, en la variante de pies.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-003","BeFootball","VSSoccer","VSS 1vsIA — manos","Experiencia individual de fútbol VR frente a la inteligencia artificial, en la variante de manos.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-004","BeFootball","VSSoccer","VSS 1vsIA — pies","Experiencia individual de fútbol VR frente a la inteligencia artificial, en la variante de pies.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-005","BeFootball","VSSoccer","Keeper Mode","El usuario ejerce de portero y detiene disparos, despejando o atrapando el balón.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","La biblioteca de renders los agrupa bajo SuperPlayer. Confirmar equivalencia.","Excel Haizea; aclaraciones de Juana"],["WX-006","BeFootball","VSSoccer","Header Mode","El usuario remata de cabeza para romper dianas situadas en la portería.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","La biblioteca de renders los agrupa bajo SuperPlayer. Confirmar equivalencia.","Excel Haizea; aclaraciones de Juana"],["WX-007","BeFootball","VSSoccer","Penalty Mode","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-008","BeFootball","VSSoccer","Goalkeeper Warrior","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-009","BeFootball","VSSoccer","Gorila Football","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-010","BeFootball","VSSoccer","FlyFootball","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-011","BeFootball","VSSoccer","VSS 2x2 y 3x3 — manos","Modalidades de fútbol VR por equipos de dos o tres jugadores, en la variante de manos.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-012","BeFootball","VSSoccer","VSS 2x2 y 3x3 — pies","Modalidades de fútbol VR por equipos de dos o tres jugadores, en la variante de pies.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-013","BeFootball","BePlay","Hit-It! — Reaction Panel","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-014","BeFootball","BePlay","Move-It! — Workout","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-015","BeFootball","BePlay","Focus-It! — Selective Attention","Ejercicio identificado como atención selectiva. Pendiente de concretar su dinámica.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-016","BeFootball","BePlay","Save-It! — Frontal Throws","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-017","BeFootball","BePlay","Pop-It!","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-018","BeFootball","BePlay","Push-It!","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.","Excel Haizea; aclaraciones de Juana"],["WX-019","BeFootball","BePlay","Rhythm Mode","Bloqueo y esquiva de balones y obstáculos al ritmo de la música, trabajando reflejos y coordinación.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento. También aparece bajo SuperPlayer en la biblioteca de renders.","Excel Haizea; aclaraciones de Juana"],["WX-020","BeFootball","Xperiences","StadiumScaler","Pendiente de describir. El Excel menciona Header y Keeper.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-021","BeFootball","Xperiences","ZeroFly","Pendiente de describir. El Excel menciona Header y Keeper.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-022","BeFootball","Xperiences","Footnambulist","Reto de equilibrio sobre una pasarela que el usuario percibe suspendida a 54 metros sobre un estadio.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","El Excel menciona Header y Keeper; aclarar relación. La biblioteca lo clasifica como IMM.","Excel Haizea; aclaraciones de Juana"],["WX-023","BeFootball","Xperiences","ShockValue","Experiencias inmersivas de miedo. Pendiente de concretar contenidos y dinámica.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-024","BeFootball","Xperiences","Golden Goals","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-025","BeFootball","Xperiences","Goaler Coaster / GoalerCoaster","Experiencia VR con simulador Whiplash. Pendiente de explicar el contenido que vive el usuario.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-026","BeFootball","Xperiences","SlideGoaler","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-027","BeFootball","Xperiences","Puzzle Match","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-028","BeFootball","Xperiences","Battle of IA","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-029","BeFootball","Xperiences","Lasertag Foot","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-030","BeFootball","Xperiences","Your Immersive Club","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-031","BeFootball","Xperiences","Flick&Goal","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-032","BeFootball","Xperiences","Pinch Soccer","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-033","BeFootball","Xperiences","FindGift","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-034","BeFootball","BF Academy","Formación para porteros","Propuesta de Academy: formación para porteros. Pendiente de definir contenido, formato y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-035","BeFootball","BF Academy","Formación para jugadores","Propuesta de Academy: formación para jugadores. Pendiente de definir contenido, formato y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-036","BeFootball","BF Academy","Formación para árbitros","Propuesta de Academy: formación para árbitros. Pendiente de definir contenido, formato y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-037","BeFootball","BF Academy","Formación para profesionales","Propuesta de Academy: formación para profesionales. Pendiente de definir contenido, formato y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-038","BeFootball","BF Academy","Recuperación de lesiones","Propuesta de Academy: recuperación de lesiones. Pendiente de definir contenido, formato y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-039","BeFootball","ai.dols","Doble digital de jugador en activo","Doble digital incorporado a través del club que dispone de los derechos. Pendiente de definir las interacciones y usos ofrecidos.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-040","BeFootball","ai.dols","Doble digital de leyenda","Doble digital de una leyenda que dispone de sus propios derechos. Pendiente de definir las interacciones y usos ofrecidos.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-041","wx180","Producción audiovisual inmersiva","Producción inmersiva genérica","Pendiente de concretar la entrada «Genérico» del inventario.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","wx180 es la productora audiovisual de vídeo inmersivo en 180°.","Excel Haizea; aclaraciones de Juana"],["WX-042","wx180","Producción audiovisual inmersiva","Paseo por museo, tour y césped","Producción de contenidos de vídeo inmersivo en 180° vinculados al museo, tour y césped de un club.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","wx180 es la productora audiovisual de vídeo inmersivo en 180°.","Excel Haizea; aclaraciones de Juana"],["WX-043","wx180","Producción audiovisual inmersiva","Charlas con jugadores","Producción audiovisual inmersiva en 180° de charlas con jugadores.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","wx180 es la productora audiovisual de vídeo inmersivo en 180°.","Excel Haizea; aclaraciones de Juana"],["WX-044","wx180","Producción audiovisual inmersiva","Documentales","Producción de documentales en vídeo inmersivo en 180°.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","wx180 es la productora audiovisual de vídeo inmersivo en 180°.","Excel Haizea; aclaraciones de Juana"],["WX-045","wx180","Producción audiovisual inmersiva","Portales","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","wx180 es la productora audiovisual de vídeo inmersivo en 180°.","Excel Haizea; aclaraciones de Juana"],["WX-046","Virtual Sports","Otros deportes","VS Basket / Vsbasket / BeBasket","Concurso de triples en baloncesto VR contrarreloj, ajustando fuerza, trayectoria y efecto del balón.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-047","IMM","Otras experiencias","Treasure Hunt","Experiencia individual de realidad virtual. Pendiente de describir la actividad y el objetivo del usuario.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-048","IMM","Otras experiencias","Toreo Virtual","Experiencia individual de toreo en realidad virtual, con distintas duraciones configurables.","Borrador","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","","Excel Haizea; aclaraciones de Juana"],["WX-049","BeFootball","Soluciones BeFootball","OIC — Official Immersive Category","Solución comercial incluida en la oferta. Pendiente de definir qué contrata el club y qué incluye.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Clasificación provisional hasta definir el alcance de la solución.","Excel Haizea; aclaraciones de Juana"],["WX-050","BeFootball","Soluciones BeFootball","BF Talks","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Clasificación provisional hasta definir el alcance de la solución.","Excel Haizea; aclaraciones de Juana"],["WX-051","BeFootball","Soluciones BeFootball","BeFootball Xtadium","Propuesta para eventos e instalaciones permanentes. Pendiente de definir componentes y alcance.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Clasificación provisional hasta definir el alcance de la solución.","Excel Haizea; aclaraciones de Juana"],["WX-052","BeFootball","Soluciones BeFootball","LIC — Legacy Immersive Category","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Clasificación provisional hasta definir el alcance de la solución.","Excel Haizea; aclaraciones de Juana"],["WX-053","BeFootball","Soluciones BeFootball","TIC — Twin Immersive Category","Pendiente de describir la experiencia y su alcance comercial.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Clasificación provisional hasta definir el alcance de la solución.","Excel Haizea; aclaraciones de Juana"],["WX-054","wowinX","Servicios de activación","Activaciones físicas en eventos","Realización de activaciones físicas utilizando experiencias del catálogo. Pendiente de definir el alcance de equipos, montaje, personal y operación.","Por completar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Por confirmar","Servicio confirmado por Juana; no procede de una fila de producto del Excel.","Excel Haizea; aclaraciones de Juana"]];
+const names=['BeFootball','Virtual Sports','IMM','wx180'];
+const colors=['var(--viz-series-1)','var(--viz-series-2)','var(--viz-series-3)','var(--viz-series-4)'];
+const summaries={'BeFootball':'Fútbol, entrenamiento y entretenimiento','Virtual Sports':'Experiencias de otros deportes','IMM':'Otras experiencias inmersivas','wx180':'Producción audiovisual inmersiva en 180°'};
+let active='BeFootball';
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const items=rows.filter(r=>r[1]!=='wowinX').map(r=>({id:r[0],family:r[1],group:r[2]==='Soluciones BeFootball'?(r[3].startsWith('OIC')?'OIC · Contrato especial con clubes':'Otras soluciones'):r[2],name:r[3],desc:r[4],note:r[12],mode:r[2]==='ai.dols'||r[2]==='Soluciones BeFootball'?(r[3].startsWith('OIC')?'Contrato especial OIC':'Pendiente'):r[1]==='wx180'?'Producción a medida':'Licencia fija/anual · Licencia temporal'}));
+function render(){
+root.querySelector('.branches').innerHTML=names.map((n,i)=>`<div class="family" style="--familycolor:${colors[i]}"><button type="button" class="btn" data-family="${n}" aria-pressed="${active===n}">${n}</button><div class="familymark"></div></div>`).join('');
+root.querySelector('.selected-path').textContent=`wowinX → ${active} · ${summaries[active]}`;
+const filtered=items.filter(x=>x.family===active);const groups=[...new Set(filtered.map(x=>x.group))];
+root.querySelector('.tree').innerHTML=groups.map((g,i)=>`<details ${i===0?'open':''}><summary class="cursor-interaction">${escape(g)}</summary><div class="products">${filtered.filter(x=>x.group===g).map(x=>`<div class="leaf"><button type="button" class="btn btn-ghost" data-item="${x.id}">${escape(x.name)}</button><p class="text-small">${escape(x.desc)}</p><div class="text-small ${x.mode==='Pendiente'?'pending':''}">${escape(x.mode)}</div></div>`).join('')}</div></details>`).join('');
+root.querySelector('.detail').hidden=true;
+}
+root.addEventListener('click',e=>{
+const f=e.target.closest('[data-family]');if(f){active=f.dataset.family;render();return;}
+const item=e.target.closest('[data-item]');if(item){const x=items.find(t=>t.id===item.dataset.item);const d=root.querySelector('.detail');d.hidden=false;d.innerHTML=`<span class="text-small">${escape(x.family)} → ${escape(x.group)}</span><h3>${escape(x.name)}</h3><p>${escape(x.desc)}</p>${x.note?`<p class="text-small">${escape(x.note)}</p>`:''}<div class="modes">${x.mode.includes('Licencia')?'<button class="btn" type="button" data-route="temporal">Camino de licencia temporal</button><button class="btn" type="button" data-route="fixed">Licencia fija/anual</button>':`<span>${escape(x.mode)}</span>${x.family==='wx180'?'<button class="btn" type="button" data-direct="wx180">Ver camino wx180</button>':x.name.startsWith('OIC')?'<button class="btn" type="button" data-direct="OIC">Ver camino OIC</button>':''}`}</div><div class="route"></div>`;d.scrollIntoView({behavior:'smooth',block:'nearest'});return;}
+const direct=e.target.closest('[data-direct]');if(direct){root.dispatchEvent(new CustomEvent('wx-product-route',{bubbles:true,detail:{mode:direct.dataset.direct,product:root.querySelector('.detail h3').textContent}}));return;}const rb=e.target.closest('[data-route]');if(rb){root.dispatchEvent(new CustomEvent('wx-product-route',{bubbles:true,detail:{mode:rb.dataset.route==='fixed'?'Licencia fija/anual':'Licencia temporal',product:root.querySelector('.detail h3').textContent}}));}
+});
+const stages=[['Preventa · Presentación',['Dossier comercial','Dossier producto','Repositorio visual']],['Preventa · Demostración',['Inventario experiencias DEMO','Tutoriales genéricos del visor','Limpieza y cuidado','Uso launcher','Guía APPLE / Portal WX180, si corresponde']],['Definición y viabilidad',['Brief preventa — CRM','Render implantación','Rider técnico','Hardware y software necesario','Atrezzo necesario','Necesidades instalación remoto']],['Definición comercial y económica',['Define y firma','Control de costes','Contratación soporte técnico']],['Personalización, si procede',['Documento rebranding']],['Solicitud de licencia / versión',['Solicitud de Build','Solicitud licencia Prisma — confirmar si es el mismo trámite']],['Entrega e instalación',['Instalación set / Guía de instalación','Albarán de entrega','Certificado instalación']],['Formación',['Guion formación','Certificado formación']],['Puesta en marcha y uso',['Guion puesta en marcha','Puesta en marcha y apagado diario','Atención usuario','Responsabilidad uso tecnología','Recomendaciones uso VR','Disclaimer uso datos']],['Soporte durante la licencia',['Soporte técnico','SLA — Garantía del Producto']],['Finalización',['Sin documento específico identificado']]];
+render();
+})();
+</script>
+</div>
+
+</div>
+<div class="view paths-view" hidden>
+<div id="wx-paths">
+<style>
+#wx-paths{color:var(--foreground)}#wx-paths .origin{text-align:center;padding:14px 0}#wx-paths .origin h2{margin:0}#wx-paths .stem{height:22px;width:1px;background:var(--border);margin:auto}#wx-paths .fork{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:16px}#wx-paths .scope{margin:20px 0}#wx-paths summary{padding:10px 0;font-weight:500}#wx-paths .road{position:relative;margin:18px 0 0 20px;padding-left:32px;border-left:2px solid var(--border)}#wx-paths .stop{position:relative;padding:0 0 24px;min-width:0}#wx-paths .marker{position:absolute;left:-49px;top:0;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--muted);color:var(--foreground)}#wx-paths .stop:first-child .marker{background:var(--primary);color:var(--primary-foreground)}#wx-paths .stop h3{margin:0 0 5px}#wx-paths .doclist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;padding-top:8px}#wx-paths .doc{border-left:1px solid var(--border);padding:3px 0 8px 12px;min-width:0}#wx-paths .doc p{margin:6px 0}#wx-paths .muted{color:var(--muted-foreground)}#wx-paths .tag{margin:4px 0 8px}#wx-paths .productgroup{margin-bottom:10px}#wx-paths .productgroup p{margin:4px 0}#wx-paths .foot{border-top:1px solid var(--border);padding-top:10px}#wx-paths .doc button{max-width:100%;white-space:normal;text-align:left}@media(max-width:540px){#wx-paths .doclist{grid-template-columns:1fr}#wx-paths .road{margin-left:16px;padding-left:26px}#wx-paths .marker{left:-43px}}
+</style>
+<div class="origin"><h2>wowinX · Caminos de venta</h2><span class="text-small">Modalidad → hitos → documentos y recursos</span></div>
+<div class="stem"></div>
+<div class="fork" aria-label="Modalidades de venta"></div>
+<div class="content" aria-live="polite"></div>
+<script>
+(()=>{
+const root=document.getElementById('wx-paths');
+const catalog=[["WX-001", "BeFootball", "VSSoccer", "VSS 1vs1 — manos", "Enfrentamiento de fútbol VR entre dos jugadores, en la variante de manos.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-002", "BeFootball", "VSSoccer", "VSS 1vs1 — pies", "Enfrentamiento de fútbol VR entre dos jugadores, en la variante de pies.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-003", "BeFootball", "VSSoccer", "VSS 1vsIA — manos", "Experiencia individual de fútbol VR frente a la inteligencia artificial, en la variante de manos.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-004", "BeFootball", "VSSoccer", "VSS 1vsIA — pies", "Experiencia individual de fútbol VR frente a la inteligencia artificial, en la variante de pies.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-005", "BeFootball", "VSSoccer", "Keeper Mode", "El usuario ejerce de portero y detiene disparos, despejando o atrapando el balón.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "La biblioteca de renders los agrupa bajo SuperPlayer. Confirmar equivalencia.", "Excel Haizea; aclaraciones de Juana"], ["WX-006", "BeFootball", "VSSoccer", "Header Mode", "El usuario remata de cabeza para romper dianas situadas en la portería.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "La biblioteca de renders los agrupa bajo SuperPlayer. Confirmar equivalencia.", "Excel Haizea; aclaraciones de Juana"], ["WX-007", "BeFootball", "VSSoccer", "Penalty Mode", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-008", "BeFootball", "VSSoccer", "Goalkeeper Warrior", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-009", "BeFootball", "VSSoccer", "Gorila Football", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-010", "BeFootball", "VSSoccer", "FlyFootball", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-011", "BeFootball", "VSSoccer", "VSS 2x2 y 3x3 — manos", "Modalidades de fútbol VR por equipos de dos o tres jugadores, en la variante de manos.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-012", "BeFootball", "VSSoccer", "VSS 2x2 y 3x3 — pies", "Modalidades de fútbol VR por equipos de dos o tres jugadores, en la variante de pies.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-013", "BeFootball", "BePlay", "Hit-It! — Reaction Panel", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-014", "BeFootball", "BePlay", "Move-It! — Workout", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-015", "BeFootball", "BePlay", "Focus-It! — Selective Attention", "Ejercicio identificado como atención selectiva. Pendiente de concretar su dinámica.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-016", "BeFootball", "BePlay", "Save-It! — Frontal Throws", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-017", "BeFootball", "BePlay", "Pop-It!", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-018", "BeFootball", "BePlay", "Push-It!", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento.", "Excel Haizea; aclaraciones de Juana"], ["WX-019", "BeFootball", "BePlay", "Rhythm Mode", "Bloqueo y esquiva de balones y obstáculos al ritmo de la música, trabajando reflejos y coordinación.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Ejercicios extraídos de Academy para ofrecer como experiencias de entrenamiento. También aparece bajo SuperPlayer en la biblioteca de renders.", "Excel Haizea; aclaraciones de Juana"], ["WX-020", "BeFootball", "Xperiences", "StadiumScaler", "Pendiente de describir. El Excel menciona Header y Keeper.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-021", "BeFootball", "Xperiences", "ZeroFly", "Pendiente de describir. El Excel menciona Header y Keeper.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-022", "BeFootball", "Xperiences", "Footnambulist", "Reto de equilibrio sobre una pasarela que el usuario percibe suspendida a 54 metros sobre un estadio.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "El Excel menciona Header y Keeper; aclarar relación. La biblioteca lo clasifica como IMM.", "Excel Haizea; aclaraciones de Juana"], ["WX-023", "BeFootball", "Xperiences", "ShockValue", "Experiencias inmersivas de miedo. Pendiente de concretar contenidos y dinámica.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-024", "BeFootball", "Xperiences", "Golden Goals", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-025", "BeFootball", "Xperiences", "Goaler Coaster / GoalerCoaster", "Experiencia VR con simulador Whiplash. Pendiente de explicar el contenido que vive el usuario.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-026", "BeFootball", "Xperiences", "SlideGoaler", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-027", "BeFootball", "Xperiences", "Puzzle Match", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-028", "BeFootball", "Xperiences", "Battle of IA", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-029", "BeFootball", "Xperiences", "Lasertag Foot", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-030", "BeFootball", "Xperiences", "Your Immersive Club", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-031", "BeFootball", "Xperiences", "Flick&Goal", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-032", "BeFootball", "Xperiences", "Pinch Soccer", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-033", "BeFootball", "Xperiences", "FindGift", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-034", "BeFootball", "BF Academy", "Formación para porteros", "Propuesta de Academy: formación para porteros. Pendiente de definir contenido, formato y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-035", "BeFootball", "BF Academy", "Formación para jugadores", "Propuesta de Academy: formación para jugadores. Pendiente de definir contenido, formato y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-036", "BeFootball", "BF Academy", "Formación para árbitros", "Propuesta de Academy: formación para árbitros. Pendiente de definir contenido, formato y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-037", "BeFootball", "BF Academy", "Formación para profesionales", "Propuesta de Academy: formación para profesionales. Pendiente de definir contenido, formato y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-038", "BeFootball", "BF Academy", "Recuperación de lesiones", "Propuesta de Academy: recuperación de lesiones. Pendiente de definir contenido, formato y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-039", "BeFootball", "ai.dols", "Doble digital de jugador en activo", "Doble digital incorporado a través del club que dispone de los derechos. Pendiente de definir las interacciones y usos ofrecidos.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-040", "BeFootball", "ai.dols", "Doble digital de leyenda", "Doble digital de una leyenda que dispone de sus propios derechos. Pendiente de definir las interacciones y usos ofrecidos.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-041", "wx180", "Producción audiovisual inmersiva", "Producción inmersiva genérica", "Pendiente de concretar la entrada «Genérico» del inventario.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "wx180 es la productora audiovisual de vídeo inmersivo en 180°.", "Excel Haizea; aclaraciones de Juana"], ["WX-042", "wx180", "Producción audiovisual inmersiva", "Paseo por museo, tour y césped", "Producción de contenidos de vídeo inmersivo en 180° vinculados al museo, tour y césped de un club.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "wx180 es la productora audiovisual de vídeo inmersivo en 180°.", "Excel Haizea; aclaraciones de Juana"], ["WX-043", "wx180", "Producción audiovisual inmersiva", "Charlas con jugadores", "Producción audiovisual inmersiva en 180° de charlas con jugadores.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "wx180 es la productora audiovisual de vídeo inmersivo en 180°.", "Excel Haizea; aclaraciones de Juana"], ["WX-044", "wx180", "Producción audiovisual inmersiva", "Documentales", "Producción de documentales en vídeo inmersivo en 180°.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "wx180 es la productora audiovisual de vídeo inmersivo en 180°.", "Excel Haizea; aclaraciones de Juana"], ["WX-045", "wx180", "Producción audiovisual inmersiva", "Portales", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "wx180 es la productora audiovisual de vídeo inmersivo en 180°.", "Excel Haizea; aclaraciones de Juana"], ["WX-046", "Virtual Sports", "Otros deportes", "VS Basket / Vsbasket / BeBasket", "Concurso de triples en baloncesto VR contrarreloj, ajustando fuerza, trayectoria y efecto del balón.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-047", "IMM", "Otras experiencias", "Treasure Hunt", "Experiencia individual de realidad virtual. Pendiente de describir la actividad y el objetivo del usuario.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-048", "IMM", "Otras experiencias", "Toreo Virtual", "Experiencia individual de toreo en realidad virtual, con distintas duraciones configurables.", "Borrador", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "", "Excel Haizea; aclaraciones de Juana"], ["WX-049", "BeFootball", "Soluciones BeFootball", "OIC — Official Immersive Category", "Solución comercial incluida en la oferta. Pendiente de definir qué contrata el club y qué incluye.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Clasificación provisional hasta definir el alcance de la solución.", "Excel Haizea; aclaraciones de Juana"], ["WX-050", "BeFootball", "Soluciones BeFootball", "BF Talks", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Clasificación provisional hasta definir el alcance de la solución.", "Excel Haizea; aclaraciones de Juana"], ["WX-051", "BeFootball", "Soluciones BeFootball", "BeFootball Xtadium", "Propuesta para eventos e instalaciones permanentes. Pendiente de definir componentes y alcance.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Clasificación provisional hasta definir el alcance de la solución.", "Excel Haizea; aclaraciones de Juana"], ["WX-052", "BeFootball", "Soluciones BeFootball", "LIC — Legacy Immersive Category", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Clasificación provisional hasta definir el alcance de la solución.", "Excel Haizea; aclaraciones de Juana"], ["WX-053", "BeFootball", "Soluciones BeFootball", "TIC — Twin Immersive Category", "Pendiente de describir la experiencia y su alcance comercial.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Clasificación provisional hasta definir el alcance de la solución.", "Excel Haizea; aclaraciones de Juana"], ["WX-054", "wowinX", "Servicios de activación", "Activaciones físicas en eventos", "Realización de activaciones físicas utilizando experiencias del catálogo. Pendiente de definir el alcance de equipos, montaje, personal y operación.", "Por completar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Por confirmar", "Servicio confirmado por Juana; no procede de una fila de producto del Excel.", "Excel Haizea; aclaraciones de Juana"]];
+const modes=['Licencia temporal','Licencia fija/anual','wx180','OIC','Patrocinadores OIC','Temporal con producción','ASCE'];let active=modes[2];let selectedProduct=null;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const CRM_OPPORTUNITIES_URL='https://softwowinx.github.io/CRM_OPPS/oportunidades.html';
+const documentLinkIds={"Dossier comercial": "commercial", "Dossier producto": "product", "Render implantación": "render", "Rider técnico": "rider", "Hardware y software necesario": "hardware", "Atrezzo necesario": "props", "Instalación set / Guía de instalación": "install", "Puesta en marcha y apagado diario": "daily", "Atención usuario": "attention", "Plantilla Brief preventa — CRM": "brief", "Brief de preventa — CRM": "brief", "Solicitud de Build / solicitud licencia Prisma": "prisma", "Contratación Soporte técnico": "support", "Certificado instalación": "install-cert", "Certificado formación": "training-cert", "Albarán de entrega": "delivery", "Uso launcher": "meta-launcher", "Guía de uso APPLE": "apple-use", "Portal wx180": "apple-portal"};
+function pathResource(doc){if(doc.name==='Define y firma')return active===modes[1]?'https://softwowinx.github.io/Define-y-Firma-FA/':(active===modes[0]||active===modes[5])?'https://softwowinx.github.io/Define-y-Firma-TEMP/':null;const id=documentLinkIds[doc.name];if(!selectedProduct&&(active===modes[0]||active===modes[1]||active===modes[5])&&(id==='commercial'||id==='product'))return 'https://proposals.doublew.group/dossier-experiencias';return id&&window.WXDocumentationLinks?.resolve(id,selectedProduct);}
+function isCRMAction(doc){return /^(Solicitud de factura|Registro|Confirmación de (cobro|pago)|Calendario de pagos|Registro del segundo pago|Fin de licencias|Build y equipos probados|Prueba de builds|Referencia a la versión|Conciliación y cierre)/i.test(doc.name);}
+const d=(name,purpose,condition='')=>({name,purpose,condition});
+const stages=[
+{name:'Preventa · Presentación',state:'Tramo confirmado',docs:[d('Dossier comercial','Presentar la oferta comercial.'),d('Dossier producto','Explicar la experiencia y sus características.'),d('Repositorio visual','Mostrar imágenes y vídeos de apoyo.')]},
+{name:'Vuelta de la reunión · Brief de preventa',state:'Orden confirmado por Juana',docs:[d('Plantilla Brief preventa — CRM','Recoger al volver de la reunión toda la información y las necesidades del cliente.')]},
+{name:'Demostración de software',state:'Antes de solicitar la build',docs:[d('Inventario experiencias DEMO','Identificar las demos que deben estar cargadas en los visores comerciales.'),d('Tutoriales genéricos META','Modo desarrollador, área de juego, wifi, pilas, menú de espera y acceso a orígenes desconocidos.','Según visor'),d('Limpieza y cuidado','Preparar y mantener los equipos de demostración.'),d('Uso launcher','Acceder a las experiencias desde el launcher.'),d('Guía de uso APPLE','Utilizar el equipo Apple.','Solo si corresponde al equipo/producto')]},
+{name:'Solicitud de build a Prisma',state:'Después de demostración · Antes de propuesta comercial',docs:[d('Solicitud de Build / solicitud licencia Prisma','Formulario para solicitar la build necesaria antes de preparar la propuesta comercial.'),d('Brief de preventa cumplimentado','Información de referencia para la solicitud.'),d('Documento rebranding','Definir las adaptaciones de marca que deba recoger la solicitud.','Si hay personalización; ubicación propuesta')]},
+{name:'Propuesta comercial',state:'Posición confirmada · Documentación por validar',docs:[d('Propuesta comercial','Presentar el alcance y las condiciones de la oferta.','Hito confirmado; plantilla no identificada en el Excel'),d('Render implantación','Mostrar la implantación prevista.'),d('Rider técnico','Concretar las condiciones técnicas y de espacio.'),d('Hardware y software necesario','Precisar equipos y programas requeridos.'),d('Atrezzo necesario','Precisar los elementos físicos necesarios.','Si corresponde'),d('Necesidades instalación remoto','Definir las condiciones de instalación o asistencia remota.','Si corresponde'),d('Control de costes','Calcular los costes de la propuesta.'),d('Contratación Soporte técnico','Concretar el soporte que incluye o contrata el cliente.','Si corresponde'),d('SLA — Garantía del Producto','Precisar las condiciones de servicio y garantía antes del acuerdo.','Alcance por validar')]},
+{name:'Formalización del acuerdo',state:'Hito y posición propuestos',docs:[d('Define y firma','Recoger el alcance y las condiciones acordadas.','Confirmar relación exacta con propuesta comercial')]},
+{name:'Entrega e instalación',state:'Tramo propuesto · Según alcance contratado',docs:[d('Instalación set / Guía de instalación','Instrucciones de montaje e instalación.'),d('Albarán de entrega','Dejar constancia de los equipos o materiales entregados.','Si hay entrega'),d('Certificado instalación','Acreditar la instalación realizada.','Si hay instalación')]},
+{name:'Formación en remoto',state:'Siempre incluida · Confirmado por Juana',docs:[d('Guion formación','Contenido de la formación remota, siempre incluida en ambas modalidades de licencia.'),d('Certificado formación','Acreditar que se ha impartido la formación en remoto.')]},
+{name:'Puesta en marcha y uso',state:'Tramo propuesto',docs:[d('Guion puesta en marcha','Guiar el arranque de la experiencia.'),d('Puesta en marcha y apagado diario','Instrucciones para iniciar y cerrar el sistema cada día.'),d('Atención usuario','Guiar la atención a los participantes.'),d('Responsabilidad uso tecnología','Documentar responsabilidades antes del primer uso.'),d('Recomendaciones uso VR','Facilitar las recomendaciones antes del primer uso.'),d('Disclaimer uso datos','Informar sobre el uso de datos antes de recogerlos.','Cuando aplique')]},
+{name:'Soporte durante la licencia',state:'Tramo propuesto',docs:[d('Soporte técnico','Información de asistencia durante la licencia.'),d('SLA — Garantía del Producto','Referencia a las condiciones acordadas de soporte y garantía.')]},
+{name:'Finalización de la licencia',state:'Pendiente de definir',docs:[d('Documento de cierre / devolución','No se ha identificado un documento específico en el Excel.','Necesidad por confirmar')]}
+];
+const clubStages=[{"name": "Brief de preventa", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Brief de preventa — CRM", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Envío de propuesta", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Propuesta OIC / dossier comercial", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo V — Catálogo de experiencias", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Negociación del MOU", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "MOU previo a OIC", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "MOU firmado", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "MOU firmado", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Contrato y anexos enviados", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Contrato OIC", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo I — Forma de trabajo conjunta", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo II — Marcas y sectores vetados", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo III — Compromisos de visibilidad del club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo IV — Autorización para interlocución y negociación", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo V — Catálogo de experiencias", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo VI — Modelo de adenda al patrocinio", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo VII — Presencia de marca BF", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Contrato y anexos firmados", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Contrato OIC y anexos I–VII firmados", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Primera reunión y canal acordado", "state": "Máximo 5 días hábiles desde la firma", "docs": [{"name": "Anexo I — Interlocutores, canal y periodicidad", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Registro de reunión — CRM", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Recepción de activos del club y manual de marca", "state": "Máximo 5 días hábiles desde la firma", "docs": [{"name": "Activos institucionales en alta resolución", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Manual de marca del club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo I — Checklist de puesta en marcha", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Nota de prensa y anuncio conjunto", "state": "Máximo 15 días naturales desde la firma, salvo fecha distinta acordada por escrito", "docs": [{"name": "Nota de prensa consensuada", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Aprobación escrita de contenido, calendario y canales", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo III — Compromisos de visibilidad", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "BF en la web del club", "state": "Máximo 15 días naturales desde la firma", "docs": [{"name": "Enlace / evidencia de presencia como Immersive Official Partner", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo III — Presencia digital", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Grabación con la primera plantilla", "state": "Sin plazo contractual fijo en días", "docs": [{"name": "Material audiovisual de jugadores y cuerpo técnico", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo III — Grabación inicial", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Precios, niveles y precio mínimo acordados", "state": "Máximo 30 días naturales desde la firma", "docs": [{"name": "Acuerdo escrito de precios, niveles y mínimo", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Materiales comerciales de apoyo — no vinculantes por sí solos", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Lista de vetados revisada", "state": "Antes de salir a mercado", "docs": [{"name": "Anexo II — Marcas y sectores vetados actualizado", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Producción", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Anexo V — Experiencias acordadas", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Activos y manual de marca del club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo VII — Presencia de marca BF", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Versión del club lista", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Referencia a la versión personalizada", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo I — Sin validación ni entrega de software al club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Presentación al club", "state": "No es un trámite de validación del software", "docs": [{"name": "Material demostrativo de la versión", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Sin acta ni firma de validación del club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Foto oficial de presentación", "state": "Modelo OIC 2026 · Contrato y anexos", "docs": [{"name": "Fotografía oficial", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo III — Comunicación de la alianza", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}];
+const brandStages=[{"name": "Club informado antes de contactar", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Comunicación previa al club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo II — Comprobación de vetos", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo IV — Autorización comercial", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Club informado antes de recurrir a una agencia", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Comunicación previa", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Aprobación escrita de contratación y comisión", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Acuerdo de intermediación", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Autorización conjunta específica, si resulta necesaria", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Propuesta enviada", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Propuesta de patrocinio", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Catálogo / dossier OIC del club", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo V — Experiencias aplicables", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Aprobación del precio por ambas partes", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Aprobación escrita si no hay mínimo o se propone un precio inferior", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Acuerdo comercial alcanzado", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Registro del cierre comercial y sus condiciones", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Reparto escrito de comisión del 10%, si ambas partes negocian de forma relevante", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Comunicación al club en 48 horas", "state": "Máximo 48 horas desde el cierre comercial", "docs": [{"name": "Comunicación escrita: patrocinador/agencia, importe, duración, previsión de facturación y cobro y contacto técnico", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Contenido del Anexo VI incorporado", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Anexo VI — Modelo de adenda al acuerdo de patrocinio", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Contrato club–patrocinador firmado", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Acuerdo de patrocinio firmado por club y patrocinador", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Copia del acuerdo recibida por BF", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Copia del acuerdo firmado y condiciones incorporadas", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Primer contacto y formación al patrocinador", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Guion de formación", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Tutoriales de las experiencias aplicables", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Certificado de formación — recurso del inventario Haizea", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "SLA enviado", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "SLA puesto a disposición del patrocinador", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Canales y condiciones del soporte adicional de pago", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo VI — Formación, SLA y soporte", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Logo BF junto al escudo en zona física", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Anexos VI y VII — Presencia de marca", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Foto / evidencia del montaje", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Logo BF en las gafas", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Anexos VI y VII — Presencia frontal de marca", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Foto / evidencia de gafas", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "Publicación de adhesión en canales BF", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Publicación de adhesión del patrocinador", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Anexo VI — Comunicación", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "El club factura al patrocinador", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Factura del club al patrocinador", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Acuerdo escrito si se pacta otro esquema de facturación", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "El club cobra", "state": "Modelo Marcas OIC 2026", "docs": [{"name": "Registro del cobro efectivo y fecha", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Comunicación de cada pago a la otra parte", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Costes directos de terceros acordados y documentados", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}, {"name": "BF recibe su parte", "state": "Máximo 7 días naturales desde cada cobro efectivo del club", "docs": [{"name": "Liquidación y registro del pago a BF", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Justificante / evidencia de cobro", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}, {"name": "Contrato — Condiciones económicas", "purpose": "Documento o evidencia asociado a este hito.", "condition": ""}]}];
+const wx180Stages=[{"name": "Brief de cliente", "state": "Hito actual del CRM", "docs": [{"name": "Brief audiovisual", "purpose": "Objetivo, público, contenido, localizaciones, duración, fechas y reproducción prevista.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}, {"name": "Propuesta enviada", "state": "Hito actual del CRM", "docs": [{"name": "Propuesta creativa y comercial", "purpose": "Enfoque audiovisual y alcance de la producción.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Presupuesto y calendario", "purpose": "Entregables, plazos, anticipo y resto a la entrega. Porcentajes pendientes de concretar.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Plantilla de presupuesto wx180 — Check Iker", "purpose": "Documento aportado: resumen y desglose estimado de costes de preproducción, rodaje, localizaciones, equipos, medios y almacenamiento, talento, posproducción, seguros y fee de producción. Incluye USD y EUR. Revisar las partidas aplicables en cada proyecto.", "condition": "Contiene datos de una producción de 2025; no utilizar sus importes como tarifas vigentes."}]}, {"name": "Propuesta aceptada", "state": "Hito actual del CRM", "docs": [{"name": "Propuesta / presupuesto aceptado", "purpose": "Constancia del alcance y condiciones aceptados.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}, {"name": "Contrato", "state": "Hito actual del CRM", "docs": [{"name": "Contrato de producción firmado", "purpose": "Alcance, entregables, derechos de uso, pagos y calendario.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Autorizaciones y derechos aplicables", "purpose": "Precisar derechos y permisos necesarios según el proyecto.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}, {"name": "Facturación y cobro del anticipo", "state": "Hito añadido al mapa · Anticipo confirmado por Juana", "docs": [{"name": "Solicitud de factura del anticipo", "purpose": "Tramitar la emisión de la factura. Circuito interno por confirmar.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Factura del anticipo", "purpose": "Emitir y enviar al cliente.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Confirmación de cobro del anticipo", "purpose": "Registrar importe y fecha. Porcentaje y condición exacta de arranque pendientes de acordar.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}, {"name": "Producción", "state": "Hito actual del CRM · Documentos propuestos", "docs": [{"name": "Guion y planificación de rodaje", "purpose": "Definir contenido, secuencia y plan de producción.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Permisos y autorizaciones de imagen", "purpose": "Disponer de permisos de localización, imagen y materiales cuando correspondan.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Control de costes", "purpose": "Seguir costes previstos y reales de la producción.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Versiones de revisión y aprobación", "purpose": "Registrar revisiones y aprobación del cliente conforme al alcance pactado.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Desglose de costes de producción y posproducción", "purpose": "Usar el presupuesto aprobado como referencia para seguir los gastos. La plantilla aportada contiene estimaciones; el registro de costes reales debe definirse.", "condition": "Plantilla wx180 — Check Iker"}]}, {"name": "Entrega y facturación del resto", "state": "Entrega: hito actual · Resto a entrega confirmado por Juana", "docs": [{"name": "Archivos finales y relación de entregables", "purpose": "Entregar las versiones y formatos acordados.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Conformidad de entrega", "purpose": "Registrar la recepción y conformidad del cliente; formato por definir.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Instrucciones de reproducción", "purpose": "Facilitar instrucciones cuando correspondan.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Factura del importe restante", "purpose": "Emitir y enviar a la entrega conforme a lo pactado.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}, {"name": "Cobrado", "state": "Hito actual del CRM", "docs": [{"name": "Confirmación de cobro del resto", "purpose": "Registrar importe y fecha.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}, {"name": "Conciliación y cierre económico", "purpose": "Comprobar cobro de anticipo y resto y cierre de costes.", "condition": "Documentación propuesta; existencia y enlace por confirmar."}]}];
+const asceStages=[{"name": "Definición de la activación", "state": "Evento, espacio y alcance", "docs": [{"name": "Brief de activación", "purpose": "Fechas de los tres días, horarios, ubicación, público, contacto del organizador y selección de contenidos. Adaptar el brief existente, sin datos de venta.", "condition": "Propuesto"}, {"name": "Confirmación de cesión del stand", "purpose": "Constancia del espacio cedido, dimensiones, condiciones, accesos y servicios incluidos.", "condition": "Propuesto"}, {"name": "Define y firma interno", "purpose": "Haizea lo marca para ASCE. Confirmar si sirve como aprobación interna del alcance; no es una propuesta de venta al cliente.", "condition": "Inventario Haizea · Por confirmar"}]}, {"name": "Diseño del espacio y viabilidad", "state": "Antes de encargar la producción física", "docs": [{"name": "Render de implantación", "purpose": "Distribución de los cuatro puestos, circulación de visitantes y espacio seguro para Header y Keeper.", "condition": "Inventario Haizea"}, {"name": "Rider técnico", "purpose": "Requisitos de cada experiencia: superficie, altura, electricidad y conectividad.", "condition": "Inventario Haizea"}, {"name": "Manual técnico de la feria y plano del stand", "purpose": "Contrastar el montaje con las condiciones del recinto y los horarios de carga, montaje y desmontaje.", "condition": "Propuesto"}, {"name": "Hardware, software y atrezzo necesarios", "purpose": "Inventario de equipos y elementos físicos necesarios para las cuatro estaciones.", "condition": "Inventario Haizea"}]}, {"name": "Presupuesto y autorización interna", "state": "Sin venta al cliente; con costes propios", "docs": [{"name": "Control de costes", "purpose": "Producción del espacio, transportes, personal, desplazamientos, alojamiento y demás gastos aplicables.", "condition": "Inventario Haizea"}, {"name": "Aprobación de presupuesto y responsable", "purpose": "Dejar aprobado qué se contrata, el gasto y quién coordina la activación.", "condition": "Propuesto"}]}, {"name": "Solicitud de build a Prisma", "state": "Hito obligatorio · Se mantiene en ASCE", "docs": [{"name": "Solicitud de build / licencia en Prisma", "purpose": "Solicitar Header y Keeper para los visores asignados, indicando fechas y condiciones de la activación.", "condition": "Confirmado por Juana"}, {"name": "Selección de producciones wx180", "purpose": "Identificar los vídeos para los dos visores Apple y confirmar el procedimiento de carga o preparación con el equipo correspondiente. No asumir que se tramitan igual que las builds VR.", "condition": "Propuesto"}, {"name": "Documento de rebranding", "purpose": "Definir adaptaciones de marca si se necesitan.", "condition": "Inventario Haizea · Si procede"}]}, {"name": "Producción del stand y preparación de contenidos", "state": "Espacio físico y equipos se preparan en paralelo", "docs": [{"name": "Diseño y órdenes de producción del espacio", "purpose": "Gráficas, mobiliario, señalización y elementos acordados del stand.", "condition": "Propuesto"}, {"name": "Guía de instalación del set", "purpose": "Preparación y montaje de cada experiencia.", "condition": "Inventario Haizea"}, {"name": "Prueba de builds y vídeos en los cuatro visores", "purpose": "Comprobar contenidos, funcionamiento, licencias, baterías, carga y reproducción antes de enviar los equipos.", "condition": "Propuesto"}]}, {"name": "Logística de ida y equipo humano", "state": "Todo lo necesario para operar tres días", "docs": [{"name": "Lista de carga y asignación de equipos", "purpose": "Visores identificados, mandos, cargadores, baterías, cables, limpieza, repuestos y atrezzo.", "condition": "Propuesto"}, {"name": "Albarán de entrega / movimiento de equipos", "purpose": "Registrar qué sale, quién lo recibe y su estado.", "condition": "Inventario Haizea · Adaptar"}, {"name": "Plan de transporte, viaje y turnos", "purpose": "Responsables, transporte de material, viajes, alojamiento, montaje, descansos y cobertura de los cuatro puestos.", "condition": "Propuesto"}, {"name": "Documentación de acceso y transporte", "purpose": "Acreditaciones, autorizaciones y documentación que soliciten el recinto y el transporte a Andorra. Requisitos concretos pendientes de verificar.", "condition": "Propuesto · Según requisitos"}]}, {"name": "Montaje, formación y puesta en marcha", "state": "Antes de abrir al público", "docs": [{"name": "Rider, render y guía de instalación", "purpose": "Referencias de montaje y comprobación del espacio.", "condition": "Inventario Haizea"}, {"name": "Certificado de instalación", "purpose": "Definir si se utiliza en una activación propia o se registra una comprobación interna de montaje.", "condition": "Inventario Haizea · Aplicabilidad por confirmar"}, {"name": "Guion y certificado de formación", "purpose": "Preparar y registrar la formación de quienes atienden el stand. Confirmar formato para equipo propio.", "condition": "Inventario Haizea"}, {"name": "Guion de puesta en marcha", "purpose": "Comprobar los cuatro puestos y las experiencias antes de abrir.", "condition": "Inventario Haizea"}]}, {"name": "Operación durante los tres días", "state": "Atención al público y continuidad del servicio", "docs": [{"name": "Puesta en marcha y apagado diario", "purpose": "Arranque, prueba, carga y cierre de equipos cada jornada.", "condition": "Inventario Haizea"}, {"name": "Atención al usuario y recomendaciones de uso VR", "purpose": "Atención al público, instrucciones y utilización de las experiencias.", "condition": "Inventario Haizea"}, {"name": "Tutoriales Apple, META y launcher", "purpose": "Consultar las instrucciones que correspondan a cada visor y sistema.", "condition": "Inventario Haizea · Según equipo"}, {"name": "Responsabilidad de uso y disclaimer de datos", "purpose": "Concretar documentos necesarios antes del uso y, si se recogen datos, antes de recogerlos.", "condition": "Inventario Haizea · Según aplicación"}, {"name": "Contactos de soporte y registro de incidencias", "purpose": "Contacto técnico, incidencias y resolución durante la activación.", "condition": "Propuesto"}]}, {"name": "Desmontaje y retorno", "state": "Recuperación del espacio y del material", "docs": [{"name": "Plan de desmontaje y lista de retorno", "purpose": "Desmontaje, embalaje, transporte y comprobación de la vuelta de todo el material.", "condition": "Propuesto"}, {"name": "Albarán de devolución / control de equipos", "purpose": "Registrar recepción, faltantes, daños y estado final de los equipos.", "condition": "Propuesto"}, {"name": "Fin de licencias temporales de la activación", "purpose": "Confirmar con el equipo responsable el cierre o desactivación cuando corresponda.", "condition": "Propuesto"}]}, {"name": "Cierre y resultados", "state": "Coste real y aprendizaje", "docs": [{"name": "Control de costes final", "purpose": "Gasto real y facturas de proveedores frente al presupuesto aprobado.", "condition": "Inventario Haizea · Completar"}, {"name": "Informe de activación y postmortem", "purpose": "Participación, incidencias, resultado y mejoras para el siguiente evento.", "condition": "Propuesto"}, {"name": "Repositorio visual y caso de éxito", "purpose": "Guardar fotos y vídeos utilizables para futuras presentaciones; caso de éxito cuando proceda.", "condition": "Inventario / propuesta de cierre"}]}];
+function getStages(){
+if(active===modes[6])return asceStages;
+if(active===modes[2])return wx180Stages;
+if(active===modes[3])return clubStages;
+if(active===modes[4])return brandStages;
+const a=stages.map(s=>({...s,docs:[...s.docs]}));
+const ix=a.findIndex(s=>s.name==='Formalización del acuerdo');
+a[ix].name='Define y firma firmado';a[ix].state='Firma registrada en el CRM';a[ix].docs=[d('Define y firma','Preparar el documento de la modalidad seleccionada.'),d('Define y firma firmado','Documento firmado, enlace y fecha de firma registrados.')];
+const legal={name:'Documentación legal',state:'CRM · Según aplicabilidad',docs:[d('SLA','Documento de servicio: creación, envío y recepción firmado cuando corresponda.'),d('RGPD','Documentación de protección de datos, si aplica.')]};
+const finance={name:'Facturación y cobro',state:'CRM · Financiero y comercial',docs:(active===modes[0]||active===modes[5])?[d('Solicitud de factura a Financiero','Pedir la emisión de la factura desde el CRM.'),d('Factura recibida de Financiero','Registrar la recepción de la factura emitida.'),d('Factura enviada al cliente','Registrar el envío de la factura a la firma y su fecha.'),d('Registro de pago único o primer pago','Elegir pago único o fraccionado y registrar fecha prevista o confirmación de cobro.','Un pago previsto no es un cobro confirmado.')]:[d('Solicitud de factura a Financiero','Solicitar factura tanto en pago único como fraccionado.'),d('Factura recibida y enviada','En pago único: recepción de Financiero y envío al cliente con fecha.'),d('Confirmación de pago','En pago único: registrar el cobro con su fecha.'),d('Calendario de pagos fraccionados','En fraccionado: número de pagos, fecha de cada pago y confirmación individual de cobro.')]};
+if(active===modes[1])a.splice(ix+1,0,{name:'Contrato',state:'CRM · Licencia fija/anual',docs:[d('Contrato','Solicitar, recibir, enviar y registrar contrato firmado, con sus fechas.')]},legal,finance);else a.splice(ix+1,0,legal,finance);
+const form=a.findIndex(s=>s.name==='Formación en remoto');
+if((active===modes[0]||active===modes[5]))a.splice(form+1,0,{name:'Segundo pago, si es fraccionado',state:'CRM · No aplica con pago único',docs:[d('Registro del segundo pago','Registrar fecha prevista o confirmación del segundo cobro.','No se muestra si se acordó pago único.')]});
+const end=a.findIndex(s=>s.name==='Finalización de la licencia');if(active===modes[1])a[end]={name:'Vencimiento y renovación anual',state:'Pendiente de validar contigo',docs:[d('Documentación de renovación','Definir qué se reutiliza y qué se actualiza para la renovación.')]};
+if(active===modes[5]){
+const step=(name,state,docs)=>({name,state,docs:docs.map(x=>d(x[0],x[1],'Propuesta de documento o adaptación del inventario'))});
+const prop=a.findIndex(x=>x.name==='Propuesta comercial');
+a.splice(prop,0,step('Diseño y presupuesto de producción','Antes de cerrar la propuesta comercial',[
+['Brief de producción','Definir espacio, fechas, duración, número de puestos y alcance de montaje y operación. Usar la información del brief de preventa sin duplicarla.'],
+['Render de implantación','Distribución de experiencias, circulación del público y elementos físicos.'],
+['Rider técnico y condiciones del recinto','Requisitos de experiencias, electricidad, conectividad y acceso a montaje.'],
+['Hardware, software y atrezzo','Listado de equipos y materiales necesarios.'],
+['Control de costes y presupuesto de producción','Incluir fabricación, alquileres, personal, transportes, desplazamientos y demás costes aplicables.']]));
+const delivery=a.findIndex(x=>x.name==='Entrega e instalación');
+a.splice(delivery,0,step('Preparación de producción y logística','Después de formalización y gestión económica según lo acordado',[
+['Órdenes de producción y diseños','Preparar gráficas, mobiliario, señalización y montaje contratado.'],
+['Build y equipos probados','Comprobar versiones, licencias y funcionamiento antes de enviar los equipos.'],
+['Lista de carga','Identificar visores, mandos, cargadores, baterías, cables, repuestos y atrezzo.'],
+['Plan de transporte, viajes y turnos','Organizar ida, alojamiento, personal y cobertura de los puestos.'],
+['Documentación del recinto','Acreditaciones, horarios, accesos y condiciones de montaje.']]));
+a[delivery+1].name='Montaje e instalación en el evento';
+const final=a.findIndex(x=>x.name==='Finalización de la licencia');
+a.splice(final,0,step('Operación de la activación','Durante el evento',[
+['Puesta en marcha y apagado diario','Abrir, probar, cargar y cerrar los equipos cada jornada.'],
+['Atención al usuario y uso VR','Instrucciones y recursos para atender a los participantes.'],
+['Plan de turnos y soporte','Cobertura de puestos y contactos de asistencia.'],
+['Registro de incidencias','Registrar incidencias y su resolución.']]),step('Desmontaje y retorno','Al finalizar el evento',[
+['Plan de desmontaje y lista de retorno','Embalaje, transporte y comprobación de material.'],
+['Albarán de devolución / control de equipos','Registrar retorno, faltantes y estado final.']]),step('Cierre de producción','Tras el retorno',[
+['Control de costes final','Comparar gasto real con presupuesto y reunir facturas de proveedores.'],
+['Informe de activación / postmortem','Resultados, incidencias y mejoras.'],
+['Repositorio visual / caso de éxito','Guardar material autorizado para futuras presentaciones.']]));
+}
+return a;
+}
+function roles(name){
+const n=name.toLowerCase();
+if(active===modes[2]){
+if(n.includes('brief'))return 'Comercial';
+if(n.includes('propuesta enviada'))return 'Dirección de Producción: creatividad y presupuesto · Dirección General: aprobación · Comercial: envío';
+if(n.includes('propuesta aceptada'))return 'Comercial';
+if(n.includes('contrato'))return 'Legal · Comercial: coordinación';
+if(n.includes('anticipo')||n==='cobrado')return 'Financiero: emisión y confirmación de cobros · Comercial: envío y seguimiento';
+if(n.includes('entrega'))return 'Dirección de Producción: entrega · Comercial: coordinación · Financiero: factura del resto';
+return 'Dirección de Producción · Financiero: cierre de costes';
+}
+if(active===modes[3]){
+if(n.includes('mou')||n.includes('contrato'))return 'Legal: preparación y revisión · Comercial: relación, envío y firmas';
+if(n.includes('precios'))return 'Dirección General + club · Comercial: coordinación';
+if(n.includes('activos'))return 'Comercial: recogida · Producto: revisión';
+if(n.includes('vetados'))return 'Comercial + club';
+if(/prensa|web del|grabación|foto oficial/.test(n))return 'Marketing · Comercial + club: coordinación';
+if(/producción|versión/.test(n))return 'Producto';
+return 'Comercial · Club: coordinación';
+}
+if(active===modes[4]){
+if(n.includes('contrato')||n.includes('anexo vi'))return 'Club: contrato y firma con patrocinador · Legal wowinX: comprobación de condiciones · Comercial: copia';
+if(n.includes('precio'))return 'Dirección General + club · Comercial: coordinación';
+if(n.includes('formación')||n.includes('sla'))return 'Operaciones · Comercial: coordinación';
+if(n.includes('publicación'))return 'Marketing · Comercial + club: coordinación';
+if(n.includes('club factura')||n.includes('club cobra'))return 'Club · Financiero: seguimiento';
+if(n.includes('bf recibe'))return 'Financiero · Comercial: coordinación con club';
+if(n.includes('logo'))return 'Responsable de implantación por concretar · Condiciones de marca confirmadas';
+return 'Comercial · Club: coordinación';
+}
+if(active===modes[6]||active===modes[5]){
+if(/presupuesto y autorización|diseño y presupuesto/.test(n))return 'Dirección de Producción: diseño y presupuesto · Dirección General: aprobación';
+if(n.includes('logística de ida')||n.includes('preparación de producción y logística'))return 'Dirección de Producción: producción · People and Culture: equipos, transporte, viajes y personal · Producto: pruebas de software';
+if(n.includes('montaje, formación'))return 'Dirección de Producción: montaje físico · Producto: instalación y activación · Operaciones: formación';
+if(n.includes('producción del stand'))return 'Dirección de Producción: espacio y atrezzo · Producto: contenidos, builds y pruebas';
+if(n.includes('desmontaje'))return 'Dirección de Producción';
+if(n.includes('cierre'))return 'Dirección de Producción + Financiero';
+if(n.includes('operación'))return 'Equipo asignado por activación; preferentemente wowinX · Operaciones: soporte';
+if(n.includes('diseño del espacio'))return 'Dirección de Producción · Producto: requisitos técnicos';
+if(n.includes('montaje e instalación'))return 'Dirección de Producción: montaje físico · Producto: instalación de software';
+}
+if(n.includes('prisma'))return 'Comercial: solicitud · Producto: viabilidad';
+if(n.includes('brief')||n.includes('preventa')||n.includes('demostración'))return 'Comercial · Producto: documentación y demos';
+if(n.includes('propuesta comercial'))return 'Comercial · Producto: condiciones técnicas · Aprobación de precios y descuentos: pendiente de asignar';
+if(n.includes('contrato')||n.includes('documentación legal'))return 'Legal · Comercial: envío y seguimiento';
+if(n.includes('facturación')||n.includes('segundo pago'))return 'Comercial: solicitud y envío de factura · Financiero: emisión y confirmación de cobros';
+if(n.includes('define y firma'))return 'Comercial';
+if(n.includes('formación'))return 'Operaciones: formación remota y certificado · Comercial: convocatoria';
+if(n.includes('instalación')||n.includes('puesta en marcha'))return 'Producto: instalación y activación · Comercial: coordinación de fechas';
+if(n.includes('soporte'))return 'Operaciones · Comercial: seguimiento';
+if(n.includes('personalización'))return 'Comercial: materiales del cliente · Producto: revisión';
+if(n.includes('build'))return 'Producto: creación, pruebas y activación';
+if(n.includes('finalización')||n.includes('renovación'))return 'Reparto de cierre y renovación: pendiente de concretar';
+return 'Comercial: coordinación · Reparto detallado pendiente';
+}
+function scope(){if(selectedProduct)return `<div class="scope"><h3>${esc(selectedProduct)}</h3><p class="text-small muted">${esc(active===modes[5]?modes[0]:active)}${active===modes[5]?' · Con producción':''}</p><button type="button" class="btn btn-ghost" data-all-products>Ver todos los productos de esta modalidad</button></div>`;let a=catalog.filter(r=>r[1]!=='wowinX'&&r[2]!=='ai.dols'&&r[2]!=='Soluciones BeFootball'&&r[1]!=='wx180');if(active===modes[2])a=catalog.filter(r=>r[1]==='wx180');if(active===modes[6])a=catalog.filter(r=>r[1]!=='wowinX'&&r[2]!=='Soluciones BeFootball'&&r[2]!=='ai.dols');if(active===modes[3]||active===modes[4])a=catalog.filter(r=>r[3].startsWith('OIC'));
+const groups=[...new Set(a.map(r=>r[1]+' → '+r[2]))];return `<details class="scope"><summary class="cursor-interaction">Productos y servicios que aplican a ${esc(active)}</summary>${groups.map(g=>`<div class="productgroup"><strong>${esc(g)}</strong><p class="text-small">${a.filter(r=>r[1]+' → '+r[2]===g).map(r=>`<button type="button" class="btn btn-ghost" data-select-product="${esc(r[3])}">${esc(r[3])}</button>`).join(' ')}</p></div>`).join('')}</details>`;}
+function render(){root.querySelector('.fork').innerHTML=(selectedProduct?(active===modes[2]?[modes[2]]:active===modes[3]||active===modes[4]?[modes[3],modes[4]]:[modes[0],modes[1]]):modes.filter((_,i)=>i!==5)).map(m=>`<button type="button" class="btn" data-mode="${m}" aria-pressed="${m===(active===modes[5]?modes[0]:active)}">${m}</button>`).join('');root.querySelector('.content').innerHTML=scope()+((active===modes[0]||active===modes[5])?`<div class="viz-controls"><button type="button" class="btn" data-production="no" aria-pressed="${active===modes[0]}">Solo licencia temporal</button><button type="button" class="btn" data-production="yes" aria-pressed="${active===modes[5]}">Licencia temporal con producción</button></div>`:'')+(true?`<p class="text-small muted">Recorridos y documentos por hito · Producción: propuesta para validar · Personas y departamentos confirmados contigo; pendientes señalados</p><div class="road">${getStages().map((s,i)=>`<section class="stop"><div class="marker">${i===0?'<i data-lucide="person-standing" aria-hidden="true"></i>':i+1}</div><h3>${esc(s.name)}</h3><p class="text-small">${esc(roles(s.name))}</p><div class="tag text-small muted">${esc(s.state)}</div><div class="doclist">${s.docs.map((doc,j)=>`<div class="doc"><button class="btn btn-ghost" type="button" data-doc="${i}-${j}" aria-expanded="false">${esc(doc.name)}</button>${isCRMAction(doc)?'<span class="text-small muted">Acción en CRM</span>':''}<div class="docdetail" hidden><p class="text-small">${esc(doc.purpose)}</p>${doc.condition?`<p class="text-small">${esc(doc.condition)}</p>`:''}${isCRMAction(doc)?`<a class="crm-action-link text-small" href="${CRM_OPPORTUNITIES_URL}" target="_blank" rel="noopener noreferrer">Abrir en Oportunidades ↗</a>`:pathResource(doc)?`<a class="crm-action-link text-small" href="${esc(pathResource(doc))}" target="_blank" rel="noopener noreferrer">${!selectedProduct&&['commercial','product'].includes(documentLinkIds[doc.name])?'Abrir catálogo general de experiencias ↗':'Abrir recurso ↗'}</a>`:'<span class="text-small muted">Enlace documental pendiente</span>' }</div></div>`).join('')}</div></section>`).join('')}</div>`:`<div class="stem"></div><h3>Camino pendiente de definir juntas</h3><p class="text-small muted">Hitos y documentos todavía sin validar para esta modalidad.</p>`);if(typeof lucide!=='undefined')lucide.createIcons();}
+root.addEventListener('click',e=>{const prod=e.target.closest('[data-production]');if(prod){active=prod.dataset.production==='yes'?modes[5]:modes[0];render();return;}const all=e.target.closest('[data-all-products]');if(all){selectedProduct=null;render();return;}const sp=e.target.closest('[data-select-product]');if(sp){selectedProduct=sp.dataset.selectProduct;render();return;}const m=e.target.closest('[data-mode]');if(m){active=m.dataset.mode;render();return;}const b=e.target.closest('[data-doc]');if(b){const detail=b.nextElementSibling;detail.hidden=!detail.hidden;b.setAttribute('aria-expanded',String(!detail.hidden));}});root.addEventListener('wx-route',e=>{const input=typeof e.detail==='string'?{mode:e.detail}:e.detail;if(modes.includes(input.mode)){selectedProduct=input.product||null;active=input.mode;render();}});root.addEventListener('wx-reset-scope',()=>{selectedProduct=null;render();});render();
+})();
+</script>
+</div>
+
+</div>
+<section class="view docs-view" hidden><div id="wx-documentation"></div></section>
+<div class="legend text-small"><span>Documento: pulsa para ver su finalidad</span><span class="links-ready">Acciones enlazadas a Oportunidades · Enlaces documentales disponibles y pendientes</span><span class="muted">Versión de trabajo · Revisión conjunta</span></div>
+<script>
+(()=>{
+const root=document.getElementById('wx-presentation');
+function open(view,label){if(view==='paths')document.getElementById('wx-paths').dispatchEvent(new CustomEvent('wx-reset-scope'));root.querySelector('.catalog-view').hidden=view!=='catalog';root.querySelector('.paths-view').hidden=view!=='paths';root.querySelector('.docs-view').hidden=view!=='docs';root.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===view)));root.querySelector('.current').textContent=label||(view==='docs'?'Documentación · Necesidades por producto y servicio':view==='catalog'?'Qué vendemos · Selecciona familia y subfamilia':'Caminos · Selecciona la modalidad');}
+function route(mode,label,product=null){open('paths',label||mode);document.getElementById('wx-paths').dispatchEvent(new CustomEvent('wx-route',{detail:{mode,product}}));}
+root.addEventListener('click',e=>{const v=e.target.closest('[data-view]');if(v){open(v.dataset.view);return;}const ex=e.target.closest('[data-example]');if(ex){const k=ex.dataset.example;route(k==='paid'?'Temporal con producción':k==='asce'?'ASCE':'OIC',k==='paid'?'Ejemplo · Header · Licencia temporal con producción':k==='asce'?'Ejemplo · Fira de Andorra · 3 días · 2 Apple con vídeo 180° + Header + Keeper':'OIC · Acuerdo con el club → Patrocinadores OIC');}});
+root.addEventListener('wx-product-route',e=>route(e.detail.mode,`${e.detail.product} → ${e.detail.mode}`,e.detail.product));
+})();
+</script>
+</div>
+
+<script src="https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js"></script>
+<script src="https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js"></script>
+<script>
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+  let lastPointerWasTouch = false;
+  let pinnedByTouch = false;
+
+  const getTrigger = (event) => {
+    for (const target of event.composedPath()) {
+      if (target?.nodeType === Node.ELEMENT_NODE) {
+        const trigger = target.closest("[data-tooltip]");
+        if (trigger) return trigger;
+      }
+    }
+    return null;
+  };
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    pinnedByTouch = false;
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handlePointer = (event) => {
+    lastPointerWasTouch =
+      event.type === "pointerdown" && event.pointerType === "touch";
+  };
+  const handleTouchClick = (event) => {
+    const isTouch = event.pointerType === "touch" || lastPointerWasTouch;
+    lastPointerWasTouch = false;
+    if (!isTouch || event.detail === 0) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (
+      trigger == null ||
+      !trigger.isConnected ||
+      getContent(trigger).length === 0 ||
+      (pinnedByTouch && activeTrigger === trigger)
+    ) {
+      if (pinnedByTouch) {
+        closeTooltip();
+      }
+      return;
+    }
+    openTooltip(trigger);
+    pinnedByTouch = activeTrigger === trigger;
+    window.setTimeout(() => {
+      if (activeTrigger === trigger && !trigger.isConnected) {
+        closeTooltip(false);
+      }
+    }, 0);
+  };
+  const handleLeave = (event) => {
+    if (pinnedByTouch) {
+      return;
+    }
+    const trigger = getTrigger(event);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    lastPointerWasTouch = false;
+    const trigger = getTrigger(event);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handlers = {
+    pointerover: handlePointerOpen,
+    pointerdown: handlePointer,
+    pointercancel: handlePointer,
+    click: handleTouchClick,
+    pointerout: handleLeave,
+    focusin: handleFocusIn,
+    focusout: handleLeave,
+    keydown: handleKeyDown,
+    contextmenu: handleContextMenu,
+  };
+  const roots = new Map();
+  const handledEvents = new WeakSet();
+  const handleEvent = (event) => {
+    if (handledEvents.has(event)) return;
+    handledEvents.add(event);
+    handlers[event.type](event);
+  };
+  const discoverRoots = (node) => {
+    if (node.shadowRoot) listen(node.shadowRoot);
+    for (const element of node.querySelectorAll("*")) {
+      if (element.shadowRoot) listen(element.shadowRoot);
+    }
+  };
+  const listen = (root) => {
+    if (roots.has(root)) return;
+    for (const type of Object.keys(handlers)) root.addEventListener(type, handleEvent);
+    const observer = new window.MutationObserver((records) => {
+      for (const { addedNodes } of records) {
+        for (const node of addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) discoverRoots(node);
+        }
+      }
+      for (const [root, cleanup] of roots) {
+        if (root.host && !root.host.isConnected) {
+          cleanup();
+          roots.delete(root);
+        }
+      }
+      if (activeTrigger && !activeTrigger.isConnected) closeTooltip(false);
+    });
+    observer.observe(root, { childList: true, subtree: true });
+    roots.set(root, () => {
+      observer.disconnect();
+      for (const type of Object.keys(handlers)) root.removeEventListener(type, handleEvent);
+    });
+    discoverRoots(root);
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    lastPointerWasTouch = false;
+    for (const cleanup of roots.values()) cleanup();
+    roots.clear();
+    tooltip = null;
+  };
+
+  // Events between children of one shadow root never reach the document.
+  listen(document);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-tabs">
+(() => {
+  const selector = '.nav[role="tablist"] [role="tab"]';
+  const disabled = ':disabled,[aria-disabled="true"]';
+  const selectTab = (selected) => {
+    const panelId = selected.getAttribute("aria-controls");
+    for (const tab of selected.closest('[role="tablist"]').querySelectorAll('[role="tab"]')) {
+      const active = tab === selected;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", String(active));
+      const id = tab.getAttribute("aria-controls");
+      const panel = id && document.getElementById(id);
+      if (panel != null) {
+        panel.hidden = id !== panelId;
+        if (!panel.hidden && selected.id) {
+          panel.setAttribute("aria-labelledby", selected.id);
+        }
+      }
+    }
+  };
+  const interact = (event) => {
+    const tab = event.target?.closest?.(selector);
+    if (event.defaultPrevented || tab == null || tab.matches(disabled)) {
+      return;
+    }
+    if (event.type === "click") {
+      selectTab(tab);
+      return;
+    }
+    const tabs = Array.from(
+      tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]'),
+    ).filter((candidate) => !candidate.matches(disabled));
+    const current = tabs.indexOf(tab);
+    let next;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      next = (current + 1) % tabs.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      next = (current + tabs.length - 1) % tabs.length;
+    } else if (event.key === "Home") {
+      next = 0;
+    } else if (event.key === "End") {
+      next = tabs.length - 1;
+    } else {
+      return;
+    }
+    event.preventDefault();
+    tabs[next].focus();
+    selectTab(tabs[next]);
+  };
+
+  for (const list of document.querySelectorAll('.nav[role="tablist"]')) {
+    const selected =
+      list.querySelector('[role="tab"][aria-selected="true"]') ??
+      list.querySelector('[role="tab"].active') ??
+      list.querySelector('[role="tab"]');
+    if (selected != null) {
+      selectTab(selected);
+    }
+  }
+  document.addEventListener("click", interact);
+  document.addEventListener("keydown", interact);
+  window.addEventListener("pagehide", () => {
+    document.removeEventListener("click", interact);
+    document.removeEventListener("keydown", interact);
+  }, { once: true });
+})();
+</script>
+<script id="codex-visualization-carousel">
+  (() => {
+    for (const root of document.querySelectorAll(".viz-carousel")) {
+      const panels = Array.from(
+        root.querySelectorAll(":scope > [data-variant]"),
+      );
+      if (panels.length === 0) {
+        continue;
+      }
+      root.setAttribute("role", "group");
+      panels.forEach((panel, index) => {
+        panel.hidden = index !== 0;
+        panel.setAttribute("role", "group");
+        if (!panel.hasAttribute("aria-label")) {
+          panel.setAttribute("aria-label", panel.dataset.variant);
+        }
+      });
+      root.dataset.activeVariant = panels[0].dataset.variant;
+      if (panels.length === 1) {
+        continue;
+      }
+
+      const controls = document.createElement("div");
+      controls.className = "viz-carousel-controls";
+      // Portable copy of the settings dropdown's legacy glyph; no 14px icon-package preset matches it.
+      // https://github.com/openai/openai/blob/master/codex/codex-apps/webview/src/icons/chevron.svg
+      controls.innerHTML = `
+      <button type="button" class="viz-carousel-previous cursor-interaction"><i data-lucide="chevron-left" aria-hidden="true"></i></button>
+      <details class="viz-carousel-picker">
+        <summary class="cursor-interaction">
+          <span class="viz-carousel-count tabular-nums"></span>
+          <span class="viz-carousel-name"></span>
+          <svg class="viz-carousel-caret" width="14" height="14" viewBox="0 0 20 21" fill="none" aria-hidden="true" focusable="false">
+            <path d="M15.2793 7.71101C15.539 7.45131 15.961 7.45131 16.2207 7.71101C16.4804 7.97071 16.4804 8.39272 16.2207 8.65242L10.4707 14.4024C10.211 14.6621 9.78902 14.6621 9.52932 14.4024L3.77932 8.65242L3.69436 8.54792C3.52385 8.28979 3.55205 7.93828 3.77932 7.71101C4.00659 7.48374 4.3581 7.45554 4.61623 7.62605L4.72073 7.71101L10 12.9903L15.2793 7.71101Z" fill="currentColor" stroke="currentColor" stroke-width="0.6" />
+          </svg>
+        </summary>
+        <div class="viz-carousel-options"></div>
+      </details>
+      <button type="button" class="viz-carousel-next cursor-interaction"><i data-lucide="chevron-right" aria-hidden="true"></i></button>`;
+      const previous = controls.querySelector(".viz-carousel-previous");
+      const next = controls.querySelector(".viz-carousel-next");
+      const picker = controls.querySelector(".viz-carousel-picker");
+      const summary = picker.querySelector("summary");
+      const count = controls.querySelector(".viz-carousel-count");
+      const name = controls.querySelector(".viz-carousel-name");
+      const options = controls.querySelector(".viz-carousel-options");
+      const status = document.createElement("span");
+      status.className = "sr-only";
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+      status.setAttribute("aria-atomic", "true");
+      previous.setAttribute(
+        "aria-label",
+        root.dataset.previousLabel ?? "Previous variant",
+      );
+      next.setAttribute("aria-label", root.dataset.nextLabel ?? "Next variant");
+
+      let active = 0;
+      let mousePointerId = null;
+      let summaryPointerHandled = false;
+      summary.addEventListener("pointerdown", (event) => {
+        summaryPointerHandled =
+          event.pointerType === "mouse" && event.button === 0 && !event.ctrlKey;
+        if (!summaryPointerHandled) {
+          return;
+        }
+        event.preventDefault();
+        summary.focus({ preventScroll: true });
+        picker.open = !picker.open;
+        mousePointerId = picker.open ? event.pointerId : null;
+      });
+      summary.addEventListener("click", (event) => {
+        if (summaryPointerHandled && event.detail > 0) {
+          event.preventDefault();
+        }
+      });
+      const choices = panels.map((panel, index) => {
+        const choice = document.createElement("button");
+        choice.type = "button";
+        choice.className = "cursor-interaction";
+        choice.textContent = panel.dataset.variant;
+        choice.addEventListener("click", () => {
+          select(index);
+          summary.focus();
+        });
+        choice.addEventListener("pointerup", (event) => {
+          if (
+            picker.open &&
+            event.pointerType === "mouse" &&
+            event.button === 0 &&
+            event.pointerId === mousePointerId
+          ) {
+            choice.click();
+          }
+        });
+        options.appendChild(choice);
+        return choice;
+      });
+      const select = (index) => {
+        const changed = active !== index;
+        active = index;
+        panels.forEach((panel, position) => {
+          panel.hidden = position !== active;
+          choices[position].setAttribute(
+            "aria-current",
+            String(position === active),
+          );
+        });
+        root.dataset.activeVariant = panels[active].dataset.variant;
+        count.textContent = `${active + 1} / ${panels.length}`;
+        name.textContent = panels[active].dataset.variant;
+        picker.open = false;
+        mousePointerId = null;
+        if (changed) {
+          status.textContent = `${count.textContent}: ${name.textContent}`;
+        }
+      };
+      previous.addEventListener("click", () =>
+        select((active + panels.length - 1) % panels.length),
+      );
+      next.addEventListener("click", () =>
+        select((active + 1) % panels.length),
+      );
+      picker.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && picker.open) {
+          event.preventDefault();
+          picker.open = false;
+          mousePointerId = null;
+          summary.focus();
+          return;
+        }
+        if (event.altKey || event.ctrlKey || event.metaKey) {
+          return;
+        }
+        const index = choices.indexOf(document.activeElement);
+        let nextIndex;
+        if (event.key === "ArrowDown") {
+          nextIndex = index < 0 ? active : (index + 1) % choices.length;
+        } else if (event.key === "ArrowUp") {
+          nextIndex = index < 0 ? active : (index + choices.length - 1) % choices.length;
+        } else if (picker.open && event.key === "Home") {
+          nextIndex = 0;
+        } else if (picker.open && event.key === "End") {
+          nextIndex = choices.length - 1;
+        } else {
+          return;
+        }
+        event.preventDefault();
+        picker.open = true;
+        choices[nextIndex].focus();
+      });
+      picker.addEventListener("focusout", (event) => {
+        if (!picker.contains(event.relatedTarget)) {
+          picker.open = false;
+          mousePointerId = null;
+        }
+      });
+      const dismiss = (event) => {
+        if (!summary.contains(event.target)) {
+          mousePointerId = null;
+        }
+        if (!picker.contains(event.target)) {
+          picker.open = false;
+        }
+      };
+      const endPointerSelection = () => {
+        mousePointerId = null;
+      };
+      const sizePicker = () => {
+        root.style.setProperty(
+          "--viz-carousel-picker-height",
+          `${picker.open ? options.offsetHeight : 0}px`,
+        );
+      };
+      picker.addEventListener("toggle", sizePicker);
+      window.addEventListener("resize", sizePicker);
+      document.addEventListener("pointerdown", dismiss);
+      document.addEventListener("pointerup", endPointerSelection);
+      document.addEventListener("pointercancel", endPointerSelection);
+      window.addEventListener("blur", endPointerSelection);
+      window.addEventListener(
+        "pagehide",
+        () => {
+          document.removeEventListener("pointerdown", dismiss);
+          document.removeEventListener("pointerup", endPointerSelection);
+          document.removeEventListener("pointercancel", endPointerSelection);
+          window.removeEventListener("blur", endPointerSelection);
+          window.removeEventListener("resize", sizePicker);
+        },
+        { once: true },
+      );
+      root.append(controls, status);
+      select(0);
+    }
+  })();
+</script>
+<script id="codex-visualization-lucide" async src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
+<script>
+(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+
+<script>document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>{document.querySelector("[data-view="+b.dataset.nav+"]").click();document.querySelector(".current").scrollIntoView({behavior:"smooth",block:"start"});}));document.getElementById("presentation-fullscreen").addEventListener("click",async()=>{if(document.fullscreenElement){await document.exitFullscreen();}else{await document.documentElement.requestFullscreen();}});</script><style>
+#wx-documentation{color:#243047;padding:20px 0}#wx-documentation h2{margin-top:0}#wx-documentation .documentation-intro{max-width:900px;line-height:1.6}.documentation-controls{display:flex;gap:18px;flex-wrap:wrap;padding:18px;background:#f1effb;border-radius:12px;margin:22px 0}.documentation-controls label{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:600}.documentation-controls select{background:white;color:#243047;border:1px solid #c9cde0;border-radius:6px;padding:10px;max-width:350px}.documentation-controls .doc-check{flex-direction:row;align-items:center;font-weight:400}.documentation-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.documentation-actions [aria-pressed=true]{background:#ded9f6!important;color:#243047!important}.product-documentation{border:1px solid #d8deeb;border-radius:10px;margin:12px 0;background:#fff;overflow:hidden}.product-documentation summary{cursor:pointer;padding:18px;background:#f6f7fc}.product-documentation summary span,.product-documentation summary strong,.product-documentation summary small{display:block;margin:3px 0}.product-documentation summary span{font-size:12px;color:#626d82}.product-documentation summary strong{font-size:19px}.documentation-table-wrap{overflow-x:auto}.documentation-table{width:100%;min-width:850px;border-collapse:collapse;text-align:left;font-size:14px;line-height:1.5}.documentation-table th{background:#eae6f8;padding:14px;vertical-align:top}.documentation-table td{padding:14px;vertical-align:top;border-bottom:1px solid #e1e5ef}.documentation-table tbody tr:nth-child(even){background:#fafbfe}.documentation-table small{display:block;color:#657086;margin-top:5px;font-size:12px}.documentation-table a{color:#4f4297;text-decoration:underline}.documentation-note{padding:0 18px;color:#657086;font-size:14px;line-height:1.6}@media(max-width:600px){.documentation-controls{flex-direction:column}.documentation-controls select{max-width:100%;width:100%}.warrior-nav{flex-wrap:wrap}}
+</style><script src="assets/documentacion.js?v=20261019-dyf"></script><style id="compact-header-entry-cards">
+#wx-presentation .map-origin{padding:24px 0 20px;gap:26px;grid-template-columns:1fr 1fr}
+#wx-presentation .map-origin h1{font-size:clamp(30px,3.7vw,48px);line-height:1.04;letter-spacing:-1.5px;margin:10px 0 14px}
+#wx-presentation .map-origin p{font-size:14px;line-height:1.65}
+#wx-presentation .warrior-eyebrow{font-size:10px;letter-spacing:1.7px}
+#wx-presentation .warrior-illustration{height:260px;border-radius:18px}
+#wx-presentation .warrior-illustration img{top:-100px}
+#wx-presentation .trunk{height:16px}
+#wx-presentation .main-fork{gap:20px;border-top:0;padding-top:0;margin-top:0}
+#wx-presentation .arm:before{display:none}
+#wx-presentation .arm>.entry-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;width:100%;height:100%;min-height:186px;padding:22px 26px;text-align:left;white-space:normal;border:1px solid #ddd8ef;border-radius:18px;background:linear-gradient(125deg,#f1edfc 0%,#fbfaff 85%);box-shadow:0 5px 18px #51478708;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+#wx-presentation .arm-paths>.entry-card{background:linear-gradient(125deg,#eaf7f7 0%,#f9fdfd 85%);border-color:#cce5e6}
+#wx-presentation .entry-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:14px}
+#wx-presentation .entry-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#fff9;color:#6a5ba7;border:1px solid #d9d0ef}
+#wx-presentation .entry-icon svg{width:21px;height:21px}
+#wx-presentation .arm-paths .entry-icon{color:#277e82;border-color:#bfdddd}
+#wx-presentation .entry-arrow{font-size:23px;font-weight:400;color:#8d83b2;line-height:1}
+#wx-presentation .arm-paths .entry-arrow{color:#6b9fa2}
+#wx-presentation .entry-kicker{font-size:10px;font-weight:700;letter-spacing:1.35px;text-transform:uppercase;color:#81759e;margin-bottom:8px}
+#wx-presentation .arm-paths .entry-kicker{color:#57888c}
+#wx-presentation .entry-title{font-size:clamp(20px,2vw,25px);line-height:1.2;letter-spacing:-.55px;font-weight:650;color:#302b4c}
+#wx-presentation .arm-paths .entry-title{color:#23484e}
+#wx-presentation .entry-description{font-size:12px;line-height:1.5;font-weight:400;color:#74748a;margin-top:10px}
+#wx-presentation .arm>.entry-card:hover{transform:translateY(-3px);border-color:#a99acb;box-shadow:0 10px 25px #51478712}
+#wx-presentation .arm-paths>.entry-card:hover{border-color:#80b5b8;box-shadow:0 10px 25px #277e8212}
+#wx-presentation .arm>.entry-card[aria-pressed=true]{border-color:#9583bf;box-shadow:0 0 0 2px #a99acb25}
+#wx-presentation .arm-paths>.entry-card[aria-pressed=true]{border-color:#68a4a7;background:linear-gradient(125deg,#e1f1f2,#f6fbfb);box-shadow:0 0 0 2px #80b5b825}
+#wx-presentation .entry-card:focus-visible{outline:3px solid #7966b5;outline-offset:4px}
+@media(max-width:650px){#wx-presentation .map-origin{padding:20px 0 16px;gap:16px}#wx-presentation .warrior-illustration{height:205px}#wx-presentation .warrior-illustration img{top:-65px}#wx-presentation .main-fork{gap:12px}#wx-presentation .arm>.entry-card{padding:18px;min-height:180px}#wx-presentation .entry-title{font-size:21px}}
+@media(max-width:480px){#wx-presentation .map-origin{grid-template-columns:1fr}#wx-presentation .warrior-illustration{height:180px}#wx-presentation .warrior-illustration img{width:145%;left:-23%;top:-90px}#wx-presentation .main-fork{grid-template-columns:1fr}#wx-presentation .arm>.entry-card{min-height:160px}#wx-presentation .entry-top{margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){#wx-presentation .arm>.entry-card{transition:none}#wx-presentation .arm>.entry-card:hover{transform:none}}
+</style>
+<style id="official-wowinx-header">
+#wx-presentation .map-origin .wowinx-brand-heading{margin:22px 0 24px;line-height:1;font-size:inherit}
+#wx-presentation .wowinx-official-logo{display:block;width:min(100%,340px);height:auto;max-width:100%;margin:0 auto}
+@media(max-width:650px){#wx-presentation .map-origin .wowinx-brand-heading{margin:18px 0 20px}#wx-presentation .wowinx-official-logo{width:min(100%,290px)}}
+@media(max-width:480px){#wx-presentation .wowinx-official-logo{width:245px}}
+</style>
+<style id="align-hero-with-modality-card">
+#wx-presentation .map-origin{width:100%;max-width:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+#wx-presentation .warrior-illustration{width:100%;min-width:0;height:auto;aspect-ratio:952/620;justify-self:stretch}
+#wx-presentation .warrior-illustration img{position:static;display:block;width:100%;max-width:100%;height:auto}
+@media(max-width:650px){#wx-presentation .map-origin{gap:12px}}
+@media(max-width:480px){#wx-presentation .map-origin{grid-template-columns:1fr}}
+</style>
+<style id="shorter-commercial-header">
+#wx-presentation .map-origin{padding-top:16px;padding-bottom:14px}
+#wx-presentation .warrior-illustration{height:auto;aspect-ratio:1.85}
+#wx-presentation .warrior-illustration img{width:100%;height:100%;object-fit:cover;object-position:center 46%}
+#wx-presentation .map-origin .wowinx-brand-heading{margin:16px 0 18px}
+#wx-presentation .trunk{height:12px}
+@media(max-width:480px){#wx-presentation .map-origin{padding-top:14px;padding-bottom:12px}.warrior-illustration{aspect-ratio:1.85}}
+</style>
+</body>
+</html>
+
+
+
